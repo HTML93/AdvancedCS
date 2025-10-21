@@ -1,43 +1,41 @@
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 
-public class LineInput extends Panel implements ActionListener {
-    public Button button;
-    public Label title;
-    public TextField lineText;
-    public Container inputContatiner;
+public class LineInput extends JPanel implements ActionListener {
+    public JButton button;
+    public JLabel title;
+    public JTextField lineText;
+    public JPanel inputContatiner;
     LineInput(){
-
-        //title
-        title = new Label("Memorization Application");
-        title.setAlignment(Label.CENTER);
-        title.setBounds(100, 100, 200, 30);  
+        title = new JLabel("Memorization Application");
        
         //button
-        button = new Button("Submit");
-        button.setBounds(100,200,75,20);
+        button = new JButton("Submit");
         button.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            MemorizationFrame.title.setText(lineText.getText());
+            title.setText(lineText.getText());
     }
         });
 
         //input
-        lineText = new TextField();
-        lineText.setBounds(100,150,100,20);
-        inputContatiner = new Container();
-        inputContatiner.add(button);
-        inputContatiner.add(title);
-        inputContatiner.add(lineText);
-        if(title!=null&&button!=null&&lineText!=null){
-            System.out.println("1234");
-        }
-        
+        lineText = new JTextField();
+
+        inputContatiner = new JPanel();
+        LayoutManager layout = new BoxLayout(inputContatiner, BoxLayout.PAGE_AXIS);  
+        inputContatiner.setLayout(layout);
+        add(title);
+        add(lineText);
+        add(button);
+        setVisible(true);
+        System.out.println("akfdljalksfjakl;sdjf");
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
-      
+    
+}
 }
