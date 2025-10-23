@@ -4,38 +4,38 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+
+import javax.sound.sampled.Line;
 import javax.swing.*;
 
 public class MemorizationFrame extends JFrame {
     public JButton button;
     public JLabel title;
     public JTextField lineText;
-    public LineInput input1;
-    public LineInput input2;
-
+    public GridBagConstraints MainFramegbc;
+    public MemorizationFrame mainFrame;
+    public LineQuestion lineQuestion;
     MemorizationFrame(){ 
+
+
         setTitle("App");
         setLayout(new GridBagLayout());
         setSize(700, 350);
+        this.getContentPane().setBackground(Color.BLACK);
+        MainFramegbc = new GridBagConstraints();
 
 
-        GridBagConstraints MainFramegbc = new GridBagConstraints();
+        lineQuestion = new LineQuestion(this);
         MainFramegbc.gridx=0;
         MainFramegbc.gridy=0;
-        input1 =new LineInput();
-        add(input1, MainFramegbc);
-        MainFramegbc.gridy=1;
-        input2 =new LineInput();
-        add(input2, MainFramegbc);
-        this.setBackground(Color.BLACK);
+        add(lineQuestion);
         setVisible(true);
 
-
-        System.out.println("background:" + input1.getBackground());
     }
-    @SuppressWarnings("unused")
-    public static void main(String args[]){  
-        MemorizationFrame mainFrame = new MemorizationFrame();  
+    public void main(String args[]){  
+        mainFrame = new MemorizationFrame();  
+        }
     
     }
-}
+
