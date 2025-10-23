@@ -23,13 +23,23 @@ public class LineInput extends JPanel implements ActionListener {
 
         //input
         lineText = new JTextField();
-
+        lineText.setColumns(10);
         inputContatiner = new JPanel();
-        LayoutManager layout = new BoxLayout(inputContatiner, BoxLayout.PAGE_AXIS);  
-        inputContatiner.setLayout(layout);
-        add(title);
-        add(lineText);
-        add(button);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+
+        
+        gbc.gridx=1;
+        gbc.gridy=1;
+        add(title, gbc);
+        gbc.gridx=1;
+        gbc.gridy=2;
+        add(lineText, gbc);
+        gbc.gridx=1;
+        gbc.gridy=3;
+        add(button, gbc);
+        this.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
         setVisible(true);
         System.out.println("akfdljalksfjakl;sdjf");
     }

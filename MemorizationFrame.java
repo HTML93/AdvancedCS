@@ -1,5 +1,9 @@
 import java.awt.Color;
-
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MemorizationFrame extends JFrame {
@@ -11,25 +15,27 @@ public class MemorizationFrame extends JFrame {
 
     MemorizationFrame(){ 
         setTitle("App");
-        setLayout(null);
-        setSize(500, 350);
+        setLayout(new GridBagLayout());
+        setSize(700, 350);
+
+
+        GridBagConstraints MainFramegbc = new GridBagConstraints();
+        MainFramegbc.gridx=0;
+        MainFramegbc.gridy=0;
         input1 =new LineInput();
-        add(input1);
-        setVisible(true);
-        input1.setBounds(100,50, 300, 250);
-        input1.setBackground(Color.RED);
+        add(input1, MainFramegbc);
+        MainFramegbc.gridy=1;
         input2 =new LineInput();
-        add(input2);
-        input2.setBounds(150,50, 300, 250);
-        input2.setBackground(Color.RED);
+        add(input2, MainFramegbc);
+        this.setBackground(Color.BLACK);
+        setVisible(true);
+
 
         System.out.println("background:" + input1.getBackground());
     }
     @SuppressWarnings("unused")
     public static void main(String args[]){  
         MemorizationFrame mainFrame = new MemorizationFrame();  
-        
-        
-         
+    
     }
 }
