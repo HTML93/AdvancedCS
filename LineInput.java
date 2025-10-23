@@ -10,14 +10,14 @@ public class LineInput extends JPanel {
     public JLabel title;
     public JTextField lineText;
     public JPanel inputContatiner;
-    LineInput(){
+    LineInput(int lineNumber){
 
         inputContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
         //title
-        title = new JLabel("Memorization Application");
+        title = new JLabel("Line Number" + (lineNumber));
         title.setForeground(Color.GRAY);
         gbc.gridx=1;
         gbc.gridy=1;

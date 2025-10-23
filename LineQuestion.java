@@ -31,10 +31,9 @@ public class LineQuestion extends JPanel {
                     if (inputNum > 0){
                         for (int i = 0; i < inputNum; i++ ){
                             mainFrame.MainFramegbc.gridy=i;
-                            mainFrame.add(new LineInput(), mainFrame.MainFramegbc);
+                            mainFrame.add(new LineInput(i), mainFrame.MainFramegbc);
                         }
                         mainFrame.remove(mainFrame.lineQuestion);
-                        System.out.println("Number of Lines: " + inputNum);
                         mainFrame.revalidate();
                         mainFrame.repaint();
                     }
