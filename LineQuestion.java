@@ -11,7 +11,8 @@ public class LineQuestion extends JPanel {
     public JTextField lineAmt;
     public JButton questionBtn;
     public JPanel questionContatiner;
-    LineQuestion(MemorizationFrame mainFrame){ 
+    public HashMap<String, LineInput> lineInputContainters = new HashMap<String, LineInput>();
+    LineQuestion(MemorizationFrame mainFrame){  
         questionContatiner = new JPanel();
         this.setLayout(new GridLayout(3,1));
         
@@ -31,8 +32,15 @@ public class LineQuestion extends JPanel {
                     if (inputNum > 0){
                         for (int i = 0; i < inputNum; i++ ){
                             mainFrame.MainFramegbc.gridy=i;
-                            mainFrame.add(new LineInput(i), mainFrame.MainFramegbc);
+                            mainFrame.MainFramegbc.gridx=1;
+                            String iToString = Integer.toString(i);
+                            String inputName= "input" + iToString;
+                            LineInput classInput = new LineInput(i);
+                            lineInputContainters.put(inputName, classInput);
+                            mainFrame.add(classInput, mainFrame.MainFramegbc);
                         }
+                        mainFrame.MainFramegbc.gridy=inputNum+1;
+                        mainFrame.add(mainFrame.finishBtn, mainFrame.MainFramegbc);
                         mainFrame.remove(mainFrame.lineQuestion);
                         mainFrame.revalidate();
                         mainFrame.repaint();
