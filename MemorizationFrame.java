@@ -14,32 +14,34 @@ import javax.swing.*;
 
 public class MemorizationFrame extends JFrame {
     public JButton finishBtn;
-    public GridBagConstraints MainFramegbc;
     public MemorizationFrame mainFrame;
+    public GridBagConstraints MainFramegbc;
     public LineQuestion lineQuestion;
     public JButton nextButton;
-    public int currentLine=0;
+    public int currentLine = 0;
     public JButton restartButton;
     public JLabel congaRats;
-    MemorizationFrame(){ 
+
+    MemorizationFrame() {
 
         setTitle("App");
         setLayout(new GridBagLayout());
-        setSize(700, 500);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         this.getContentPane().setBackground(Color.BLACK);
+
         MainFramegbc = new GridBagConstraints();
 
-
         lineQuestion = new LineQuestion(this);
-        MainFramegbc.gridx=0;
-        MainFramegbc.gridy=0;
+        MainFramegbc.gridx = 0;
+        MainFramegbc.gridy = 0;
 
-        //finishBtn
+        // finishBtn
         finishBtn = new JButton("Finish");
         finishBtn.setForeground(Color.gray);
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int linenum=1;
+                int linenum = 1;
                 for (LineInput i : lineQuestion.lineInputContainters.values()) {
                     i.remove(i.title);
                     i.remove(i.subButton);
@@ -49,54 +51,73 @@ public class MemorizationFrame extends JFrame {
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
-                    MainFramegbc.gridy=linenum;
-                    MainFramegbc.gridx=1;
+                    MainFramegbc.gridy = linenum + 1;
+                    MainFramegbc.gridx = 1;
                     linenum++;
                 }
                 MainFramegbc.gridy++;
                 add(nextButton, MainFramegbc);
                 MainFramegbc.gridy++;
                 add(restartButton, MainFramegbc);
-                MainFramegbc.gridy=-1;
+                MainFramegbc.gridy = -1;
                 remove(finishBtn);
                 revalidate();
                 repaint();
 
             }
-        } 
-        );
+        });
 
         nextButton = new JButton("Next");
-        nextButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-               { 
-                String currentLineName = "input"+currentLine;
-                LineInput currentLineInput = lineQuestion.lineInputContainters.get(currentLineName);
-                try{currentLineInput.add(currentLineInput.title);}
-                catch (Exception d){
-                String lastInput = "input"+lineQuestion.lineInputContainters.size();
-                if (currentLineName.equals(lastInput)){
-                    MainFramegbc.gridy=-1;
-                    congaRats = new JLabel("CONGA RATS YOU FINISHED");
-                    congaRats.setFont(new Font("Serif", Font.BOLD, 999999));
-                    congaRats.setForeground(Color.gray);
-                    add(congaRats, MainFramegbc);
-                    remove(nextButton);
-                    
-                }}
+        nextButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                {
+                    String currentLineName = "input" + currentLine;
+                    LineInput currentLineInput = lineQuestion.lineInputContainters.get(currentLineName);
+                    try {
+                        currentLineInput.add(currentLineInput.title);
+                    } catch (Exception d) {
+                        String lastInput = "input" + lineQuestion.lineInputContainters.size();
+                        if (currentLineName.equals(lastInput)) {
+                            MainFramegbc.gridy = 0;
+                            congaRats = new JLabel("CONGA RATS YOU FINISHED");
+                            congaRats.setFont(new Font("Serif", Font.BOLD, 45));
+                            congaRats.setForeground(Color.gray);
+                            add(congaRats, MainFramegbc);
+                            remove(nextButton);
+                        }
+                    }
+                    if (currentLineInput.otherLineSelected == true) {
+
+                        int nextCheckedLine = currentLine + 1;
+                        String nextLineName = "input" + nextCheckedLine;
+                        LineInput nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                        System.out.println(nextLineInput);
+                        if (nextLineInput != null) {
+                            while (nextLineInput.otherLineSelected == true) {
+                                if (nextLineInput != null) {
+                                    System.out.println(nextLineName);
+                                    nextLineInput.add(nextLineInput.title);
+                                    nextCheckedLine++;
+                                    nextLineName = "input" + nextCheckedLine;
+                                    nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                                    currentLine++;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 currentLine++;
                 revalidate();
                 repaint();
             }
-        }
-            
         });
 
-        //restart button
+        // restart button
         restartButton = new JButton("Restart");
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MainFramegbc.gridy=0;
+                MainFramegbc.gridy = 1;
                 for (LineInput i : lineQuestion.lineInputContainters.values()) {
                     i.remove(i.title);
                     i.revalidate();
@@ -105,32 +126,28 @@ public class MemorizationFrame extends JFrame {
                     MainFramegbc.gridy++;
                 }
                 add(nextButton, MainFramegbc);
-                currentLine=0;
+                currentLine = 0;
                 remove(finishBtn);
                 remove(congaRats);
                 revalidate();
                 repaint();
 
             }
-        }
-        );
-
-
+        });
 
         add(lineQuestion);
-        setVisible(true);
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e)
-            {
+            public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
 
-    }
-    public void main(String args[]){  
-        mainFrame = new MemorizationFrame();  
-        }
-    
+        setVisible(true);
+
     }
 
+    public void main(String args[]) {
+    }
+
+}

@@ -27,7 +27,7 @@ public class LineInput extends JPanel {
         add(otherLine, gbc);
 
         // title
-        title = new JLabel("Line Number" + (lineNumber));
+        title = new JLabel("Line Number " + (lineNumber));
         title.setForeground(Color.GRAY);
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -59,13 +59,11 @@ public class LineInput extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String titleSet = lineText.getText();
                 if (titleSet.isEmpty()==false) {
-                    System.out.println(titleSet);
 
                     title.setText(titleSet);
                     if (otherLine.isSelected()) {
                         title.setForeground(Color.blue);
                         otherLineSelected = true;
-                        System.out.println(otherLineSelected);
                     } else {
                         title.setForeground(Color.GRAY);
                         otherLineSelected = false;
@@ -77,7 +75,6 @@ public class LineInput extends JPanel {
                     gbc.gridy = 4;
                     add(editButton, gbc);
                 } else {
-                    System.out.println("No line entered");
                     lineText.setText("Enter a Line");
                 }
                 revalidate();

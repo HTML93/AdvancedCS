@@ -31,7 +31,7 @@ public class LineQuestion extends JPanel {
                     inputNum = Integer.parseInt(lineNum);
                     if (inputNum > 0){
                         for (int i = 0; i < inputNum; i++ ){
-                            mainFrame.MainFramegbc.gridy=i;
+                            mainFrame.MainFramegbc.gridy=i+1;
                             mainFrame.MainFramegbc.gridx=1;
                             String iToString = Integer.toString(i);
                             String inputName= "input" + iToString;
