@@ -27,7 +27,7 @@ public class LineInput extends JPanel {
         add(otherLine, gbc);
 
         // title
-        title = new JLabel("Line Number " + (lineNumber));
+        title = new JLabel("Line Number " + (lineNumber+1));
         title.setForeground(Color.GRAY);
         gbc.gridx = 1;
         gbc.gridy = 1;

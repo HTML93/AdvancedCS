@@ -73,34 +73,32 @@ public class MemorizationFrame extends JFrame {
                 {
                     String currentLineName = "input" + currentLine;
                     LineInput currentLineInput = lineQuestion.lineInputContainters.get(currentLineName);
-                    try {
+                    if (currentLineInput == null) {
+                        MainFramegbc.gridy = 0;
+                        congaRats = new JLabel("CONGA RATS YOU FINISHED");
+                        congaRats.setFont(new Font("Serif", Font.BOLD, 45));
+                        congaRats.setForeground(Color.BLUE);
+                        add(congaRats, MainFramegbc);
+                        remove(nextButton);
+                    } else {
                         currentLineInput.add(currentLineInput.title);
-                    } catch (Exception d) {
-                        String lastInput = "input" + lineQuestion.lineInputContainters.size();
-                        if (currentLineName.equals(lastInput)) {
-                            MainFramegbc.gridy = 0;
-                            congaRats = new JLabel("CONGA RATS YOU FINISHED");
-                            congaRats.setFont(new Font("Serif", Font.BOLD, 45));
-                            congaRats.setForeground(Color.gray);
-                            add(congaRats, MainFramegbc);
-                            remove(nextButton);
-                        }
-                    }
-                    if (currentLineInput.otherLineSelected == true) {
 
-                        int nextCheckedLine = currentLine + 1;
-                        String nextLineName = "input" + nextCheckedLine;
-                        LineInput nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
-                        System.out.println(nextLineInput);
-                        if (nextLineInput != null) {
-                            while (nextLineInput.otherLineSelected == true) {
-                                if (nextLineInput != null) {
-                                    System.out.println(nextLineName);
-                                    nextLineInput.add(nextLineInput.title);
-                                    nextCheckedLine++;
-                                    nextLineName = "input" + nextCheckedLine;
-                                    nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
-                                    currentLine++;
+                        if (currentLineInput.otherLineSelected == true) {
+
+                            int nextCheckedLine = currentLine + 1;
+                            String nextLineName = "input" + nextCheckedLine;
+                            LineInput nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                            System.out.println(nextLineInput);
+                            if (nextLineInput != null) {
+                                while (nextLineInput.otherLineSelected == true) {
+                                    if (nextLineInput != null) {
+                                        System.out.println(nextLineName);
+                                        nextLineInput.add(nextLineInput.title);
+                                        nextCheckedLine++;
+                                        nextLineName = "input" + nextCheckedLine;
+                                        nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                                        currentLine++;
+                                    }
                                 }
                             }
                         }
