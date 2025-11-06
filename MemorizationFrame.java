@@ -134,6 +134,7 @@ public class MemorizationFrame extends JFrame {
         });
 
         add(lineQuestion);
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

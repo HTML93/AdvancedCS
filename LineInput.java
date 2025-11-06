@@ -27,7 +27,7 @@ public class LineInput extends JPanel {
         add(otherLine, gbc);
 
         // title
-        title = new JLabel("Line Number " + (lineNumber+1));
+        title = new JLabel("Line Number " + (lineNumber + 1));
         title.setForeground(Color.GRAY);
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -58,7 +58,7 @@ public class LineInput extends JPanel {
         subButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String titleSet = lineText.getText();
-                if (titleSet.isEmpty()==false) {
+                if (titleSet.isEmpty() == false) {
 
                     title.setText(titleSet);
                     if (otherLine.isSelected()) {

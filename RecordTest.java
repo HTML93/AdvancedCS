@@ -14,12 +14,11 @@ import javax.sound.sampled.TargetDataLine;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
-
 public class RecordTest {
 
     public static void main(String[] args) {
         try {
-            
+
             AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
             DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
             if (!AudioSystem.isLineSupported(dataInfo)) {
@@ -28,7 +27,7 @@ public class RecordTest {
 
             TargetDataLine targetLine;
             Mixer myMixer;
-            ArrayList<Mixer> mixerArray=new ArrayList<Mixer>();
+            ArrayList<Mixer> mixerArray = new ArrayList<Mixer>();
             Mixer miced = null;
             Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
 
@@ -38,17 +37,16 @@ public class RecordTest {
                 myMixer = AudioSystem.getMixer(mixerInfo[i]);
 
                 if (myMixer.isLineSupported(Port.Info.MICROPHONE)) {
-                    System.out.println("Mic is supported!");   
+                    System.out.println("Mic is supported!");
                     mixerArray.add(myMixer);
                 }
 
             }
-           // miced=mixerArray.get(0);
-           miced = null;q
-            if (miced!=null){
+            // miced=mixerArray.get(0);
+            miced = null;
+            if (miced != null) {
                 targetLine = (TargetDataLine) miced.getLine(dataInfo);
-            }
-            else{
+            } else {
                 System.out.println("No Mic Detected");
                 targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
             }
