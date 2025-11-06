@@ -1,0 +1,50 @@
+Mixer: Default Audio Device
+  interface SourceDataLine supporting 14 audio formats, and buffers of at least 32 bytes
+    PCM_UNSIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, big-endian
+    PCM_UNSIGNED unknown sample rate, 8 bit, stereo, 2 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, stereo, 2 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, stereo, 4 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, stereo, 4 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, stereo, 6 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, stereo, 6 bytes/frame, big-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, stereo, 4 bytes/frame, big-endian
+  interface Clip supporting 14 audio formats, and buffers of at least 32 bytes
+    PCM_UNSIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, big-endian
+    PCM_UNSIGNED unknown sample rate, 8 bit, stereo, 2 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, stereo, 2 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, stereo, 4 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, stereo, 4 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, stereo, 6 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, stereo, 6 bytes/frame, big-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, stereo, 4 bytes/frame, big-endian
+  interface TargetDataLine supporting 8 audio formats, and buffers of at least 32 bytes
+    PCM_UNSIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, big-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, mono, 2 bytes/frame, big-endian
+Mixer: MacBook Air Microphone
+  interface TargetDataLine supporting 8 audio formats, and buffers of at least 32 bytes
+    PCM_UNSIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 8 bit, mono, 1 bytes/frame
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 16 bit, mono, 2 bytes/frame, big-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, little-endian
+    PCM_SIGNED unknown sample rate, 24 bit, mono, 3 bytes/frame, big-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
+    PCM_SIGNED 48000.0 Hz, 16 bit, mono, 2 bytes/frame, big-endian
