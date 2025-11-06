@@ -43,13 +43,11 @@ public class RecordTest {
 
             }
             // miced=mixerArray.get(0);
-            miced = null;
-            if (miced != null) {
-                targetLine = (TargetDataLine) miced.getLine(dataInfo);
-            } else {
-                System.out.println("No Mic Detected");
+
+
+
                 targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
-            }
+
 
             targetLine.open();
 
