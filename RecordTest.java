@@ -1,4 +1,8 @@
 
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -12,59 +16,91 @@ import javax.sound.sampled.Line;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import java.util.ArrayList;
 
-public class RecordTest {
+public class RecordTest extends JPanel{
+    public JButton startButton;
+    public JButton endButton;
+    public AudioFormat audioFormat;
+    public DataLine.Info dataInfo;
+    public TargetDataLine targetLine;
+    public JPanel recordContainer;
+    public Boolean isRecording = false;
+    RecordTest(String fileName) {
+        recordContainer = new JPanel();
+        recordContainer.setLayout(new GridLayout(1, 1));
+        this.setBackground(Color.BLACK);
+        //start button
+        startButton= new JButton("Start Recording Line");
+        startButton.addActionListener(new ActionListener() {
 
-    public static void main(String[] args) {
-       try {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recordGo(fileName);
+                isRecording= true;        
+                add(endButton);
+                remove(startButton);
+                revalidate();
+                repaint();
+            }});
 
-            AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24000, 16, 1, 2, 48000, false);
-            DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+        //end recording button
+        endButton = new JButton("End Recording");
+        endButton.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+            targetLine.stop();
+            targetLine.close();
+            remove(endButton);
+            startButton.setText("Rerecord Line");
+            add(startButton);
+            isRecording = false;
+            revalidate();
+            repaint();
+            }
+        }));
+
+        add(startButton);
+        this.setVisible(true);
+    }
+
+    public void recordGo(String filePath) {
+        try {
+
+            audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24000, 16, 1, 2, 48000, false);
+            dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
             if (!AudioSystem.isLineSupported(dataInfo)) {
                 System.out.println("Not Sup");
             }
 
-
-            TargetDataLine targetLine;
             Mixer myMixer;
             ArrayList<Mixer> mixerArray = new ArrayList<Mixer>();
-            Mixer miced = null;
             Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
 
             for (int i = 0; i < mixerInfo.length; i++) {
-
-                System.out.println("Name: " + mixerInfo[i].getName());
                 myMixer = AudioSystem.getMixer(mixerInfo[i]);
 
                 if (myMixer.isLineSupported(Port.Info.MICROPHONE)) {
-                    System.out.println("Mic is supported");
                     mixerArray.add(myMixer);
                 }
 
             }
-            /*System.out.println(miced);
-            miced = mixerArray.get(0);
-            System.out.println(miced);
-            if (miced != null) {
-                targetLine = (TargetDataLine) miced.getLine(dataInfo);
+            targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
 
-            } else {
-                System.out.println("No Mic Detected"); */
-                targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
 
-            System.out.println(targetLine);
-           
             targetLine.open();
 
-            JOptionPane.showMessageDialog(null, "hit ok to record");
+
             targetLine.start();
             Thread audioRecorderThread = new Thread() {
                 @Override
                 public void run() {
                     AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                    File outputFile = new File("record.wav");
+                    File outputFile = new File(filePath);
                     try {
                         AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
                     } catch (IOException ex) {
@@ -73,54 +109,13 @@ public class RecordTest {
                     System.out.println("finished");
                 }
             };
-            audioRecorderThread.start();
-            JOptionPane.showMessageDialog(null, "hit ok to stop");
-            targetLine.stop();
-            targetLine.close();
+            audioRecorderThread.start();    
         } catch (Exception e) {
             System.out.println(e);
-        } 
-
+        }
     }
 
-public static void displayMixerInfo()
-{
-  Mixer.Info [] mixersInfo = AudioSystem.getMixerInfo();
+    public static void main(String[] args) {
 
-  for (Mixer.Info mixerInfo : mixersInfo)
-   {
-     System.out.println("Mixer: " + mixerInfo.getName());
-
-     Mixer mixer = AudioSystem.getMixer(mixerInfo);
-
-     Line.Info [] sourceLineInfo = mixer.getSourceLineInfo();
-     for (Line.Info info : sourceLineInfo)
-      {
-        showLineInfo(info);
-      }
-
-     Line.Info [] targetLineInfo = mixer.getTargetLineInfo();
-     for (Line.Info info : targetLineInfo)
-      {
-        showLineInfo(info);
-      }
-   }
-}
-
-
-private static void showLineInfo(Line.Info lineInfo)
-{
-  System.out.println("  " + lineInfo.toString());
-
-  if (lineInfo instanceof DataLine.Info)
-   {
-     DataLine.Info dataLineInfo = (DataLine.Info)lineInfo;
-
-     AudioFormat [] formats = dataLineInfo.getFormats();
-     for (AudioFormat format : formats)
-      {
-        System.out.println("    " + format.toString());
-      }
-   }
-}
+    }
 }

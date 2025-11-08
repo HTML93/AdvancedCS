@@ -7,9 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class MemorizationFrame extends JFrame {
@@ -21,6 +27,9 @@ public class MemorizationFrame extends JFrame {
     public int currentLine = 0;
     public JButton restartButton;
     public JLabel congaRats;
+    public JButton playButton;
+    public AudioInputStream audioStream;
+    public File audioFile;
 
     MemorizationFrame() {
 
@@ -56,6 +65,8 @@ public class MemorizationFrame extends JFrame {
                     linenum++;
                 }
                 MainFramegbc.gridy++;
+                add(playButton, MainFramegbc);
+                MainFramegbc.gridy++;
                 add(nextButton, MainFramegbc);
                 MainFramegbc.gridy++;
                 add(restartButton, MainFramegbc);
@@ -81,7 +92,8 @@ public class MemorizationFrame extends JFrame {
                         add(congaRats, MainFramegbc);
                         remove(nextButton);
                     } else {
-                        currentLineInput.add(currentLineInput.title);
+                        MainFramegbc.gridy = currentLine;
+                        currentLineInput.add(currentLineInput.title, MainFramegbc);
 
                         if (currentLineInput.otherLineSelected == true) {
 
@@ -133,6 +145,20 @@ public class MemorizationFrame extends JFrame {
             }
         });
 
+        // play button
+        playButton = new JButton("Play Line");
+
+        playButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String currentAudioFile = currentLine + "input.wav";
+                audioFile = new File(currentAudioFile);
+                System.out.println("Audio File Title: " + currentAudioFile + " Audio File: " + audioFile
+                        + " Current Line: " + currentLine);
+                playFile(audioFile);
+
+            }
+        });
+
         add(lineQuestion);
 
         addWindowListener(new WindowAdapter() {
@@ -141,9 +167,19 @@ public class MemorizationFrame extends JFrame {
                 System.exit(0);
             }
         });
-
         setVisible(true);
 
+    }
+
+    public void playFile(File audioFile) {
+        try {
+            Clip lineAudio = AudioSystem.getClip();
+            audioStream = AudioSystem.getAudioInputStream(audioFile);
+            lineAudio.open(audioStream);
+            lineAudio.start();
+        } catch (Exception d) {
+            System.out.println(d);
+        }
     }
 
     public void main(String args[]) {

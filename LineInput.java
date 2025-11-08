@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.*;
 
 public class LineInput extends JPanel {
@@ -13,8 +17,12 @@ public class LineInput extends JPanel {
     public JCheckBox otherLine;
     public JButton editButton;
     public boolean otherLineSelected;
-
+    public RecordTest lineRecorder;
+    public String filePathName;
+    public Path path;
     LineInput(int lineNumber) {
+        filePathName = lineNumber +"input.wav";
+        path = Paths.get(filePathName);
 
         inputContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
@@ -23,7 +31,7 @@ public class LineInput extends JPanel {
         otherLine = new JCheckBox("Other Person's Line?", false);
         otherLine.setForeground(Color.GRAY);
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         add(otherLine, gbc);
 
         // title
@@ -42,11 +50,14 @@ public class LineInput extends JPanel {
                 gbc.gridx = 1;
                 gbc.gridy = 2;
                 add(lineText, gbc);
-                gbc.gridx = 1;
-                gbc.gridy = 3;
-                add(otherLine, gbc);
-                gbc.gridx = 1;
+                
+                gbc.gridy=3;
+                add(lineRecorder, gbc);
+
                 gbc.gridy = 4;
+                add(otherLine, gbc);
+
+                gbc.gridy = 5;
                 add(subButton, gbc);
                 revalidate();
                 repaint();
@@ -67,12 +78,22 @@ public class LineInput extends JPanel {
                     } else {
                         title.setForeground(Color.GRAY);
                         otherLineSelected = false;
+                        if(Files.exists(path)==false){
+                            lineText.setText("Record the Line");
+                            return;
+                        }
+                    }
+                    System.out.println(lineRecorder.isRecording);
+                    if(lineRecorder.isRecording == true){
+                        lineText.setText("Finish Recording");
+                        return;
                     }
                     remove(lineText);
                     remove(subButton);
                     remove(otherLine);
+                    remove(lineRecorder);
                     gbc.gridx = 1;
-                    gbc.gridy = 4;
+                    gbc.gridy = 5;
                     add(editButton, gbc);
                 } else {
                     lineText.setText("Enter a Line");
@@ -83,7 +104,7 @@ public class LineInput extends JPanel {
         });
         subButton.setForeground(Color.gray);
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         add(subButton, gbc);
 
         // input
@@ -93,6 +114,12 @@ public class LineInput extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 2;
         add(lineText, gbc);
+
+        //line record
+        lineRecorder = new RecordTest(filePathName);
+        gbc.gridy=3;
+        
+        add(lineRecorder, gbc);
 
         this.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         this.setBackground(Color.BLACK);
