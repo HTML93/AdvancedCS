@@ -20,8 +20,9 @@ public class LineInput extends JPanel {
     public RecordTest lineRecorder;
     public String filePathName;
     public Path path;
-    LineInput(int lineNumber) {
-        filePathName = lineNumber +"input.wav";
+
+    LineInput(int lineNumber, boolean islineRecording, boolean hasOtherLines) {
+        filePathName = lineNumber + "input.wav";
         path = Paths.get(filePathName);
 
         inputContatiner = new JPanel();
@@ -32,8 +33,9 @@ public class LineInput extends JPanel {
         otherLine.setForeground(Color.GRAY);
         gbc.gridx = 1;
         gbc.gridy = 4;
-        add(otherLine, gbc);
-
+        if (hasOtherLines == true) {
+            add(otherLine, gbc);
+        }
         // title
         title = new JLabel("Line Number " + (lineNumber + 1));
         title.setForeground(Color.GRAY);
@@ -50,10 +52,11 @@ public class LineInput extends JPanel {
                 gbc.gridx = 1;
                 gbc.gridy = 2;
                 add(lineText, gbc);
-                
-                gbc.gridy=3;
-                add(lineRecorder, gbc);
 
+                if (islineRecording) {
+                    gbc.gridy = 3;
+                    add(lineRecorder, gbc);
+                }
                 gbc.gridy = 4;
                 add(otherLine, gbc);
 
@@ -78,13 +81,15 @@ public class LineInput extends JPanel {
                     } else {
                         title.setForeground(Color.GRAY);
                         otherLineSelected = false;
-                        if(Files.exists(path)==false){
-                            lineText.setText("Record the Line");
-                            return;
+                        if (islineRecording == true) {
+                            if (Files.exists(path) == false) {
+                                lineText.setText("Record the Line");
+                                return;
+                            }
                         }
                     }
                     System.out.println(lineRecorder.isRecording);
-                    if(lineRecorder.isRecording == true){
+                    if (lineRecorder.isRecording == true) {
                         lineText.setText("Finish Recording");
                         return;
                     }
@@ -115,12 +120,12 @@ public class LineInput extends JPanel {
         gbc.gridy = 2;
         add(lineText, gbc);
 
-        //line record
+        // line record
         lineRecorder = new RecordTest(filePathName);
-        gbc.gridy=3;
-        
-        add(lineRecorder, gbc);
-
+        gbc.gridy = 3;
+        if (islineRecording) {
+            add(lineRecorder, gbc);
+        }
         this.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         this.setBackground(Color.BLACK);
         setVisible(true);

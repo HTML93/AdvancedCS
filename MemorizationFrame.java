@@ -51,7 +51,7 @@ public class MemorizationFrame extends JFrame {
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
-                for (LineInput i : lineQuestion.lineInputContainters.values()) {
+                for (LineInput i : lineQuestion.lineInputContainers.values()) {
                     i.remove(i.title);
                     i.remove(i.subButton);
                     i.remove(i.lineText);
@@ -65,7 +65,9 @@ public class MemorizationFrame extends JFrame {
                     linenum++;
                 }
                 MainFramegbc.gridy++;
-                add(playButton, MainFramegbc);
+                if (lineQuestion.islineRecording) {
+                    add(playButton, MainFramegbc);
+                }
                 MainFramegbc.gridy++;
                 add(nextButton, MainFramegbc);
                 MainFramegbc.gridy++;
@@ -76,14 +78,14 @@ public class MemorizationFrame extends JFrame {
                 repaint();
 
             }
-        });
+        }); 
 
         nextButton = new JButton("Next");
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 {
                     String currentLineName = "input" + currentLine;
-                    LineInput currentLineInput = lineQuestion.lineInputContainters.get(currentLineName);
+                    LineInput currentLineInput = lineQuestion.lineInputContainers.get(currentLineName);
                     if (currentLineInput == null) {
                         MainFramegbc.gridy = 0;
                         congaRats = new JLabel("CONGA RATS YOU FINISHED");
@@ -99,7 +101,7 @@ public class MemorizationFrame extends JFrame {
 
                             int nextCheckedLine = currentLine + 1;
                             String nextLineName = "input" + nextCheckedLine;
-                            LineInput nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                            LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
                             System.out.println(nextLineInput);
                             if (nextLineInput != null) {
                                 while (nextLineInput.otherLineSelected == true) {
@@ -108,7 +110,7 @@ public class MemorizationFrame extends JFrame {
                                         nextLineInput.add(nextLineInput.title);
                                         nextCheckedLine++;
                                         nextLineName = "input" + nextCheckedLine;
-                                        nextLineInput = lineQuestion.lineInputContainters.get(nextLineName);
+                                        nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
                                         currentLine++;
                                     }
                                 }
@@ -128,7 +130,7 @@ public class MemorizationFrame extends JFrame {
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MainFramegbc.gridy = 1;
-                for (LineInput i : lineQuestion.lineInputContainters.values()) {
+                for (LineInput i : lineQuestion.lineInputContainers.values()) {
                     i.remove(i.title);
                     i.revalidate();
                     i.repaint();
@@ -164,6 +166,11 @@ public class MemorizationFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                for (int i = 0; i < lineQuestion.lineInputContainers.size(); i++) {
+                    File fileToDelete = new File(i + "input.wav");
+                    fileToDelete.delete();
+                    System.out.println(fileToDelete);
+                }
                 System.exit(0);
             }
         });
