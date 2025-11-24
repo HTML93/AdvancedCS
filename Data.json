@@ -1,0 +1,16 @@
+[{
+    "1": {
+        "audioFile": "1input.wav",
+        "line": "3"
+    }
+}, {
+    "2": {
+        "audioFile": "2input.wav",
+        "line": "2"
+    }
+}, {
+    "3": {
+        "audioFile": "3input.wav",
+        "line": "1"
+    }
+}]

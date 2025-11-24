@@ -10,13 +10,14 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
+import java.util.TimerTask;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import java.util.Timer;
 
 public class MemorizationFrame extends JFrame {
     public JButton finishBtn;
@@ -30,9 +31,10 @@ public class MemorizationFrame extends JFrame {
     public JButton playButton;
     public AudioInputStream audioStream;
     public File audioFile;
+    public ProjectFileData projectData;
 
     MemorizationFrame() {
-
+        projectData = new ProjectFileData();
         setTitle("App");
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -51,12 +53,16 @@ public class MemorizationFrame extends JFrame {
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
+                
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
                     i.remove(i.title);
                     i.remove(i.subButton);
                     i.remove(i.lineText);
                     i.remove(i.editButton);
                     i.remove(i.otherLine);
+                    String line = i.title.getText();
+                    String fileName = linenum+"input.wav";
+                    projectData.addToLinesList(linenum, line, fileName, i.otherLineSelected);
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
@@ -64,6 +70,7 @@ public class MemorizationFrame extends JFrame {
                     MainFramegbc.gridx = 1;
                     linenum++;
                 }
+                System.out.println(projectData.outLines());
                 MainFramegbc.gridy++;
                 if (lineQuestion.islineRecording) {
                     add(playButton, MainFramegbc);
@@ -156,7 +163,7 @@ public class MemorizationFrame extends JFrame {
                 audioFile = new File(currentAudioFile);
                 System.out.println("Audio File Title: " + currentAudioFile + " Audio File: " + audioFile
                         + " Current Line: " + currentLine);
-                playFile(audioFile);
+                playFile(audioFile , lineQuestion.timePlay);
 
             }
         });
@@ -178,12 +185,24 @@ public class MemorizationFrame extends JFrame {
 
     }
 
-    public void playFile(File audioFile) {
+    public void playFile(File audioFile, int playTime) {
         try {
             Clip lineAudio = AudioSystem.getClip();
             audioStream = AudioSystem.getAudioInputStream(audioFile);
             lineAudio.open(audioStream);
             lineAudio.start();
+            playTime *= 1000;
+            TimerTask stopPlay = new TimerTask() {
+
+                @Override
+                public void run() {
+                    lineAudio.stop();
+                    lineAudio.close();
+                }
+                
+            };
+            Timer timer = new Timer();
+            timer.schedule(stopPlay, playTime);
         } catch (Exception d) {
             System.out.println(d);
         }
@@ -191,5 +210,12 @@ public class MemorizationFrame extends JFrame {
 
     public void main(String args[]) {
     }
-
+    public Boolean checkFinish(LineInput lineinput){
+        if(lineinput.title.getText()!=null){
+        return true;
+    }
+        else {
+            return false;
+        }
+    }
 }
