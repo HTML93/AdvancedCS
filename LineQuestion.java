@@ -18,7 +18,9 @@ public class LineQuestion extends JPanel {
     public boolean hasOtherLines = false;
     public int timePlay;
     public JTextField timePlayInput;
-
+    public JTextField titleName;
+    public JLabel titleLabel;
+    public String Title;
     LineQuestion(MemorizationFrame mainFrame) {
         questionContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
@@ -83,23 +85,34 @@ public class LineQuestion extends JPanel {
         isOtherLines = new JCheckBox("Do You Want to Input Lines for Other People");
         isOtherLines.setForeground(Color.GRAY);
         lineRecording.setForeground(Color.GRAY);
-        lineInputGBC.gridx = 2;
-        lineInputGBC.gridy = 1;
-        add(question, lineInputGBC);
+        //title
+        titleName = new JTextField();
+        titleLabel = new JLabel("Title");
+        titleLabel.setForeground(Color.gray);
+        titleName.setColumns(15);
+
+
+        lineInputGBC.gridx = 2;        
+        lineInputGBC.gridy= 0;
+        add(titleLabel, lineInputGBC);
+        lineInputGBC.gridy=1;
+        add(titleName, lineInputGBC);
         lineInputGBC.gridy = 2;
-        add(lineAmt, lineInputGBC);
+        add(question, lineInputGBC);
         lineInputGBC.gridy = 3;
-        add(timePlayInputLabel, lineInputGBC);
+        add(lineAmt, lineInputGBC);
         lineInputGBC.gridy = 4;
-        add(timePlayInput, lineInputGBC);
+        add(timePlayInputLabel, lineInputGBC);
         lineInputGBC.gridy = 5;
+        add(timePlayInput, lineInputGBC);
+        lineInputGBC.gridy = 6;
         lineInputGBC.gridx=1;
         add(isOtherLines, lineInputGBC);
-        lineInputGBC.gridy = 5;
+        lineInputGBC.gridy = 6;
         lineInputGBC.gridx=3;
         add(lineRecording, lineInputGBC);
         lineInputGBC.gridx = 2;
-        lineInputGBC.gridy = 6;
+        lineInputGBC.gridy = 7;
         add(questionBtn, lineInputGBC);
         this.setBackground(Color.BLACK);
         this.setVisible(true);

@@ -1,16 +1,25 @@
 [{
     "1": {
         "audioFile": "1input.wav",
+        "otherLine": false,
         "line": "3"
     }
 }, {
     "2": {
         "audioFile": "2input.wav",
+        "otherLine": false,
         "line": "2"
     }
 }, {
     "3": {
         "audioFile": "3input.wav",
+        "otherLine": false,
         "line": "1"
+    }
+}, {
+    "4": {
+        "audioFile": "4input.wav",
+        "otherLine": false,
+        "line": "0"
     }
 }]

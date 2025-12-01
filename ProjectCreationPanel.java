@@ -24,10 +24,6 @@ public class ProjectCreationPanel extends JPanel{
         ProjectCreationGBC.gridx=1;
         ProjectCreationGBC.gridy=1;
         add(title);
-
-
-
-
         
     }
 
