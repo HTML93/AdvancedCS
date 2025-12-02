@@ -1,0 +1,19 @@
+[{
+    "uno": {
+        "audioFile": "1input.wav",
+        "otherLine": false,
+        "lineNum": 1
+    }
+}, {
+    "dos": {
+        "audioFile": "2input.wav",
+        "otherLine": false,
+        "lineNum": 2
+    }
+}, {
+    "tres": {
+        "audioFile": "3input.wav",
+        "otherLine": false,
+        "lineNum": 3
+    }
+}]

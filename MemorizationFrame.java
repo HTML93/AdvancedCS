@@ -53,7 +53,6 @@ public class MemorizationFrame extends JFrame {
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
-                
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
                     i.remove(i.title);
                     i.remove(i.subButton);
@@ -62,7 +61,8 @@ public class MemorizationFrame extends JFrame {
                     i.remove(i.otherLine);
                     String line = i.title.getText();
                     String fileName = linenum+"input.wav";
-                    projectData.addToLinesList(linenum, line, fileName, i.otherLineSelected);
+                    System.out.println(lineQuestion.title + linenum + line + fileName + i.otherLineSelected);
+                    projectData.addToLinesList(lineQuestion.title, linenum, line, fileName, i.otherLineSelected);
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
@@ -70,7 +70,7 @@ public class MemorizationFrame extends JFrame {
                     MainFramegbc.gridx = 1;
                     linenum++;
                 }
-                System.out.println(projectData.outLines());
+                projectData.outLines();
                 MainFramegbc.gridy++;
                 if (lineQuestion.islineRecording) {
                     add(playButton, MainFramegbc);

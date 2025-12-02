@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.swing.*;
 
@@ -11,7 +12,7 @@ public class LineQuestion extends JPanel {
     public JTextField lineAmt;
     public JButton questionBtn;
     public JPanel questionContatiner;
-    public HashMap<String, LineInput> lineInputContainers = new HashMap<String, LineInput>();
+    public LinkedHashMap<String, LineInput> lineInputContainers = new LinkedHashMap<String, LineInput>();
     public boolean islineRecording = false;
     public JCheckBox lineRecording;
     public JCheckBox isOtherLines;
@@ -20,7 +21,7 @@ public class LineQuestion extends JPanel {
     public JTextField timePlayInput;
     public JTextField titleName;
     public JLabel titleLabel;
-    public String Title;
+    public String title;
     LineQuestion(MemorizationFrame mainFrame) {
         questionContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
@@ -42,6 +43,7 @@ public class LineQuestion extends JPanel {
                         timePlayInput.setText("Choose a positive number");
                     } else {
                         if (checkInt(lineNum)) {
+                            title = titleName.getText();
                             inputNum = Integer.parseInt(lineNum);
                             if (inputNum > 0) {
                                 if (lineRecording.isSelected()) {
