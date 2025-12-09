@@ -34,10 +34,10 @@ public class ProjectFileData {
             JSONObject obj = new JSONObject();
             JSONObject objItem = new JSONObject();
             List<Object> listofstuff = linesList.get(i);
-            objItem.put("lineNum", listofstuff.get(3));
+            objItem.put("line", linesList.get(i).get(0).toString());
             objItem.put("audioFile", listofstuff.get(1));
             objItem.put("otherLine", listofstuff.get(2));
-            String lineNumber = linesList.get(i).get(0).toString();
+            String lineNumber = listofstuff.get(3).toString();
             obj.put(lineNumber, objItem);
             jsonArray.put(obj);
             System.out.println("hi");
@@ -53,10 +53,11 @@ public class ProjectFileData {
 
         try {
             File fileGo = new File("projects.json");
-            ArrayList<String> projectsToAdd = retrieveProjects();
+            ArrayList<String> projectsToAdd = retrieveFile("projects.json");
             JSONArray projects = new JSONArray();
-            projects.put(projectsToAdd);
-            projects.put(projectTitle);
+            projectsToAdd.add(projectTitle);
+            for(int i=0; i<projectsToAdd.size(); i++)
+                {projects.put(projectsToAdd.get(i));}
             FileWriter file = new FileWriter(fileGo);
 
             file.write(projects.toString());
@@ -68,10 +69,10 @@ public class ProjectFileData {
         }
     }
 
-    public static ArrayList<String> retrieveProjects() {
+    public static ArrayList<String> retrieveFile(String File) {
         
         try {
-            File projectFile = new File("projects.json");
+            File projectFile = new File(File);
             ArrayList<String> projects = new ArrayList<String>();
 
             if (projectFile.exists() && projectFile.length() > 0) {
@@ -81,6 +82,7 @@ public class ProjectFileData {
                 ArrayList<String> listObj = (ArrayList<String>) obj;
                 for (int i = 0; i < listObj.size(); i++) {
                     projects.add(listObj.get(i));
+                    System.out.println(projects);
                 }
             }
             return projects;
