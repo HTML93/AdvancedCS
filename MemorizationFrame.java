@@ -59,10 +59,11 @@ public class MemorizationFrame extends JFrame {
                     i.remove(i.lineText);
                     i.remove(i.editButton);
                     i.remove(i.otherLine);
-                    String line = i.title.getText();
-                    String fileName = linenum+"input.wav";
-                    System.out.println(lineQuestion.title + linenum + line + fileName + i.otherLineSelected);
-                    projectData.addToLinesList(lineQuestion.title, linenum, line, fileName, i.otherLineSelected);
+                    if (lineQuestion.title != null) {
+                        String line = i.title.getText();
+                        String fileName = linenum + "input.wav";
+                        projectData.addToLinesList(lineQuestion.title, linenum, line, fileName, i.otherLineSelected);
+                    }
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
@@ -85,13 +86,14 @@ public class MemorizationFrame extends JFrame {
                 repaint();
 
             }
-        }); 
+        });
 
         nextButton = new JButton("Next");
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 {
                     String currentLineName = "input" + currentLine;
+                    System.out.println(currentLineName);
                     LineInput currentLineInput = lineQuestion.lineInputContainers.get(currentLineName);
                     if (currentLineInput == null) {
                         MainFramegbc.gridy = 0;
@@ -109,11 +111,9 @@ public class MemorizationFrame extends JFrame {
                             int nextCheckedLine = currentLine + 1;
                             String nextLineName = "input" + nextCheckedLine;
                             LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
-                            System.out.println(nextLineInput);
                             if (nextLineInput != null) {
                                 while (nextLineInput.otherLineSelected == true) {
                                     if (nextLineInput != null) {
-                                        System.out.println(nextLineName);
                                         nextLineInput.add(nextLineInput.title);
                                         nextCheckedLine++;
                                         nextLineName = "input" + nextCheckedLine;
@@ -161,9 +161,8 @@ public class MemorizationFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String currentAudioFile = currentLine + "input.wav";
                 audioFile = new File(currentAudioFile);
-                System.out.println("Audio File Title: " + currentAudioFile + " Audio File: " + audioFile
-                        + " Current Line: " + currentLine);
-                playFile(audioFile , lineQuestion.timePlay);
+
+                playFile(audioFile, lineQuestion.timePlay);
 
             }
         });
@@ -176,7 +175,6 @@ public class MemorizationFrame extends JFrame {
                 for (int i = 0; i < lineQuestion.lineInputContainers.size(); i++) {
                     File fileToDelete = new File(i + "input.wav");
                     fileToDelete.delete();
-                    System.out.println(fileToDelete);
                 }
                 System.exit(0);
             }
@@ -199,7 +197,7 @@ public class MemorizationFrame extends JFrame {
                     lineAudio.stop();
                     lineAudio.close();
                 }
-                
+
             };
             Timer timer = new Timer();
             timer.schedule(stopPlay, playTime);
@@ -210,11 +208,11 @@ public class MemorizationFrame extends JFrame {
 
     public void main(String args[]) {
     }
-    public Boolean checkFinish(LineInput lineinput){
-        if(lineinput.title.getText()!=null){
-        return true;
-    }
-        else {
+
+    public Boolean checkFinish(LineInput lineinput) {
+        if (lineinput.title.getText() != null) {
+            return true;
+        } else {
             return false;
         }
     }

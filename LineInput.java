@@ -21,6 +21,7 @@ public class LineInput extends JPanel {
     public RecordTest lineRecorder;
     public String filePathName;
     public Path path;
+    public GridBagConstraints gbc;
 
     LineInput(int lineNumber, boolean islineRecording, boolean hasOtherLines) {
         filePathName = lineNumber + "input.wav";
@@ -28,7 +29,7 @@ public class LineInput extends JPanel {
 
         inputContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
 
         otherLine = new JCheckBox("Other Person's Line?", false);
         otherLine.setForeground(Color.GRAY);
@@ -89,7 +90,6 @@ public class LineInput extends JPanel {
                             }
                         }
                     }
-                    System.out.println(lineRecorder.isRecording);
                     if (lineRecorder.isRecording == true) {
                         lineText.setText("Finish Recording");
                         return;

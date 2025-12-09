@@ -108,44 +108,38 @@ public class ProjectCreationPanel extends JPanel {
         MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame();
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
+        int linenum=0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
-            int linenum=0;
             System.out.println(currentLine);
+            randomlyGeneratedVariableName.MainFramegbc.gridx=1;
+            linenum++;
             for (Object key : currentLine.keySet()) {
-                linenum++;
-                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
-                        .get(key.toString());
-                System.out.println(
-                        "current line: " + currentLine + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
-                randomlyGeneratedVariableName.MainFramegbc.gridy++;
-                LineInput currentLineTitle = new LineInput(i + 1, false,
-                        (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"));
+                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine.get(key.toString());
+                System.out.println("current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
+                randomlyGeneratedVariableName.MainFramegbc.gridy=linenum;
+                LineInput currentLineTitle = new LineInput(i + 1, false,(boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"));
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
-                //currentLineTitle.remove(currentLineTitle.title);
-                currentLineTitle.remove(currentLineTitle.subButton);
+                currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.remove(currentLineTitle.lineText);
-                currentLineTitle.remove(currentLineTitle.editButton);
-                currentLineTitle.remove(currentLineTitle.otherLine);
-               
+                currentLineTitle.remove(currentLineTitle.subButton);
+                currentLineTitle.gbc.gridy=2;
+                currentLineTitle.add(currentLineTitle.editButton, currentLineTitle.gbc);
+                randomlyGeneratedVariableName.add(currentLineTitle, randomlyGeneratedVariableName.MainFramegbc);
                 currentLineTitle.revalidate();
                 currentLineTitle.repaint();
                 currentLineTitle.setBorder(null);
-                randomlyGeneratedVariableName.add(currentLineTitle, randomlyGeneratedVariableName.MainFramegbc);
+
+                randomlyGeneratedVariableName.lineQuestion.lineInputContainers.put("input"+Integer.toString(linenum-1), currentLineTitle);
+                System.out.println(fileName);
             }
            randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
-                randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
+                randomlyGeneratedVariableName.MainFramegbc.gridy++;
+                randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn, randomlyGeneratedVariableName.MainFramegbc);
                 /*if (lineQuestion.islineRecording) {
                     add(randomlyGeneratedVariableName.playButton, randomlyGeneratedVariableName.MainFramegbc);
                 }*/
-                randomlyGeneratedVariableName.MainFramegbc.gridy++;
-                randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.nextButton, randomlyGeneratedVariableName.MainFramegbc);
-                randomlyGeneratedVariableName.MainFramegbc.gridy++;
-                randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.restartButton, randomlyGeneratedVariableName.MainFramegbc);
-                randomlyGeneratedVariableName.MainFramegbc.gridy = -1;
-                randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.finishBtn);
-                randomlyGeneratedVariableName.revalidate();
-                randomlyGeneratedVariableName.repaint();
+               System.out.println(randomlyGeneratedVariableName.lineQuestion.lineInputContainers);
         }
 
     }

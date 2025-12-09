@@ -28,7 +28,6 @@ public class ProjectFileData {
     }
 
     public void outLines() {
-        System.out.println(linesList);
         JSONArray jsonArray = new JSONArray();
         for (String i : linesList.keySet()) {
             JSONObject obj = new JSONObject();
@@ -40,11 +39,9 @@ public class ProjectFileData {
             String lineNumber = listofstuff.get(3).toString();
             obj.put(lineNumber, objItem);
             jsonArray.put(obj);
-            System.out.println("hi");
         }
         try (FileWriter file = new FileWriter(projectTitle + ".json")) {
             file.write(jsonArray.toString());
-            System.out.println("Successfully Copied JSON Object to File...");
             System.out.println("\nJSON Object: " + jsonArray);
         } catch (Exception e) {
             System.out.println(e);
@@ -82,7 +79,6 @@ public class ProjectFileData {
                 ArrayList<String> listObj = (ArrayList<String>) obj;
                 for (int i = 0; i < listObj.size(); i++) {
                     projects.add(listObj.get(i));
-                    System.out.println(projects);
                 }
             }
             return projects;
