@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,27 +31,30 @@ public class ProjectCreationPanel extends JPanel {
         projectBox = new JPanel();
 
         this.setBackground(Color.black);
-        projectBox.setLayout(new GridBagLayout());
-        GridBagConstraints ProjectCreationGBC = new GridBagConstraints();
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints ProjectOpenGBC = new GridBagConstraints();
         Border blackline = BorderFactory.createLineBorder(Color.white);
-        // Border blankBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border blankBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         this.setBorder(blackline);
-        // this.setBorder(blankBorder);
         title = new JLabel(name);
         title.setForeground(Color.gray);
-        ProjectCreationGBC.gridx = 1;
-        ProjectCreationGBC.gridy = 1;
-        add(title);
+        ProjectOpenGBC.gridx = 1;
+        ProjectOpenGBC.gridy = 1;
+        System.out.println("title: "+ProjectOpenGBC.gridy);
+        title.setBorder(blankBorder);
+        add(title, ProjectOpenGBC);
 
         openButton = new JButton("Open");
 
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openProject(name + ".json");
+                openProject(name + ".json", name);
                 System.out.println("name: " + name);
             }
         });
-        add(openButton);
+        ProjectOpenGBC.gridy++;
+        System.out.println("open: "+ProjectOpenGBC.gridy);
+        add(openButton, ProjectOpenGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
             maxDimension.height = this.getPreferredSize().height;
         }
@@ -62,16 +66,29 @@ public class ProjectCreationPanel extends JPanel {
     ProjectCreationPanel() {
         projectBox = new JPanel();
         this.setBackground(Color.black);
-        projectBox.setLayout(new GridBagLayout());
+        this.setLayout(new GridBagLayout());
         GridBagConstraints ProjectCreationGBC = new GridBagConstraints();
         Border blackline = BorderFactory.createLineBorder(Color.white);
         this.setBorder(blackline);
-
+        Border blankBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         title = new JLabel("Create A Project");
+        title.setBorder(blankBorder);
         title.setForeground(Color.gray);
         ProjectCreationGBC.gridx = 1;
         ProjectCreationGBC.gridy = 1;
-        add(title);
+        System.out.println("Create Title: "+ ProjectCreationGBC.gridy);
+        add(title, ProjectCreationGBC);
+        //Create button
+        openButton = new JButton("Create");
+        openButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createProject();
+            }
+        });
+        ProjectCreationGBC.gridy++;
+                System.out.println("createbtn: "+ProjectCreationGBC.gridy);
+
+        add(openButton, ProjectCreationGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
             maxDimension.height = this.getPreferredSize().height;
         }
@@ -83,7 +100,7 @@ public class ProjectCreationPanel extends JPanel {
         setPreferredSize(maxDimension);
     }
 
-    public void openProject(String fileName) {
+    public void openProject(String fileName, String name) {
         ArrayList<Object> project = new ArrayList<Object>();
 
         try {
@@ -106,6 +123,7 @@ public class ProjectCreationPanel extends JPanel {
             System.out.println(e);
         }
         MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame();
+        randomlyGeneratedVariableName.title = name; 
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
         int linenum=0;
@@ -118,11 +136,18 @@ public class ProjectCreationPanel extends JPanel {
                 org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine.get(key.toString());
                 System.out.println("current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
                 randomlyGeneratedVariableName.MainFramegbc.gridy=linenum;
-                LineInput currentLineTitle = new LineInput(i + 1, false,(boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"));
+                LineInput currentLineTitle = new LineInput(i + 1, false,(boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
+                if ((boolean)idkWhatToCallcertainVariablesanymore.get("otherLine")==true){
+                    currentLineTitle.title.setForeground(Color.blue);
+                    currentLineTitle.otherLineSelected=true;
+                }
+                randomlyGeneratedVariableName.lineQuestion.timePlay = (int)(long)idkWhatToCallcertainVariablesanymore.get("recordLength"); 
+                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean)idkWhatToCallcertainVariablesanymore.get("islineRecording"); 
                 currentLineTitle.remove(currentLineTitle.lineText);
                 currentLineTitle.remove(currentLineTitle.subButton);
+                currentLineTitle.remove(currentLineTitle.otherLine);
                 currentLineTitle.gbc.gridy=2;
                 currentLineTitle.add(currentLineTitle.editButton, currentLineTitle.gbc);
                 randomlyGeneratedVariableName.add(currentLineTitle, randomlyGeneratedVariableName.MainFramegbc);
@@ -145,6 +170,7 @@ public class ProjectCreationPanel extends JPanel {
     }
 
     public void createProject() {
+        MemorizationFrame creationFrame = new MemorizationFrame();
 
     }
 }

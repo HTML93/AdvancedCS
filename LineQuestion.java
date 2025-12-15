@@ -57,7 +57,7 @@ public class LineQuestion extends JPanel {
                                     mainFrame.MainFramegbc.gridx = 1;
                                     String iToString = Integer.toString(i);
                                     String inputName = "input" + iToString;
-                                    LineInput classInput = new LineInput(i, islineRecording, hasOtherLines);
+                                    LineInput classInput = new LineInput(i, islineRecording, hasOtherLines, titleName.getText() );
                                     lineInputContainers.put(inputName, classInput);
                                     mainFrame.add(classInput, mainFrame.MainFramegbc);
                                 }

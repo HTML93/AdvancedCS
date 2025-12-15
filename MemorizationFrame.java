@@ -32,7 +32,7 @@ public class MemorizationFrame extends JFrame {
     public AudioInputStream audioStream;
     public File audioFile;
     public ProjectFileData projectData;
-
+    public String title;
     MemorizationFrame() {
         projectData = new ProjectFileData();
         setTitle("App");
@@ -54,6 +54,7 @@ public class MemorizationFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
+                    
                     i.remove(i.title);
                     i.remove(i.subButton);
                     i.remove(i.lineText);
@@ -61,8 +62,7 @@ public class MemorizationFrame extends JFrame {
                     i.remove(i.otherLine);
                     if (lineQuestion.title != null) {
                         String line = i.title.getText();
-                        String fileName = linenum + "input.wav";
-                        projectData.addToLinesList(lineQuestion.title, linenum, line, fileName, i.otherLineSelected);
+                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording, i.otherLineSelected, lineQuestion.timePlay);
                     }
                     i.revalidate();
                     i.repaint();
@@ -71,7 +71,8 @@ public class MemorizationFrame extends JFrame {
                     MainFramegbc.gridx = 1;
                     linenum++;
                 }
-                projectData.outLines();
+                if (lineQuestion.title != null) {
+                    projectData.outLines();}
                 MainFramegbc.gridy++;
                 if (lineQuestion.islineRecording) {
                     add(playButton, MainFramegbc);
@@ -159,7 +160,10 @@ public class MemorizationFrame extends JFrame {
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String currentAudioFile = currentLine + "input.wav";
+                if(title==null){
+                    title=lineQuestion.title;
+                }
+                String currentAudioFile = currentLine + title + "input.wav";
                 audioFile = new File(currentAudioFile);
 
                 playFile(audioFile, lineQuestion.timePlay);

@@ -23,8 +23,8 @@ public class LineInput extends JPanel {
     public Path path;
     public GridBagConstraints gbc;
 
-    LineInput(int lineNumber, boolean islineRecording, boolean hasOtherLines) {
-        filePathName = lineNumber + "input.wav";
+    LineInput(int lineNumber, boolean islineRecording, boolean hasOtherLines, String projectName) {
+        filePathName = lineNumber + projectName + "input.wav";
         path = Paths.get(filePathName);
 
         inputContatiner = new JPanel();
@@ -112,7 +112,6 @@ public class LineInput extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 5;
         add(subButton, gbc);
-
         // input
         lineText = new JTextField();
         lineText.setColumns(10);
