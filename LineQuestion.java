@@ -22,12 +22,18 @@ public class LineQuestion extends JPanel {
     public JTextField titleName;
     public JLabel titleLabel;
     public String title;
+    public JScrollPane scrollPane;
+    public JPanel scrollPanel;
+    public GridLayout lineQuestionLayout;
     LineQuestion(MemorizationFrame mainFrame) {
         questionContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
         GridBagConstraints lineInputGBC = new GridBagConstraints();
         question = new JLabel("How Many Lines");
         question.setForeground(Color.GRAY);
+        scrollPanel= new JPanel();
+        scrollPane = new JScrollPane(scrollPanel);
+        lineQuestionLayout = new GridLayout();
 
         lineAmt = new JTextField();
         lineAmt.setColumns(15);
@@ -52,6 +58,19 @@ public class LineQuestion extends JPanel {
                                 if (isOtherLines.isSelected()) {
                                     hasOtherLines = true;
                                 }
+                                int columns = 2;
+                                while (inputNum % columns!=0&&columns<6){
+                                    columns++;
+                                }
+                                lineQuestionLayout.setColumns(columns);
+                                System.out.println(columns);
+                                int rows = inputNum/columns;
+                                if (inputNum%columns!=0)
+                                    rows++;
+                                lineQuestionLayout.setRows(rows);
+                                System.out.print(inputNum/columns);
+                                scrollPanel.setLayout(lineQuestionLayout);
+
                                 for (int i = 0; i < inputNum; i++) {
                                     mainFrame.MainFramegbc.gridy = i + 1;
                                     mainFrame.MainFramegbc.gridx = 1;
@@ -59,9 +78,20 @@ public class LineQuestion extends JPanel {
                                     String inputName = "input" + iToString;
                                     LineInput classInput = new LineInput(i, islineRecording, hasOtherLines, titleName.getText() );
                                     lineInputContainers.put(inputName, classInput);
-                                    mainFrame.add(classInput, mainFrame.MainFramegbc);
+                                    scrollPanel.add(classInput);
                                 }
                                 mainFrame.MainFramegbc.gridy = inputNum + 1;
+                                scrollPane.setBackground(Color.BLACK);
+                                Dimension mainSize = mainFrame.getSize();
+                                mainSize.height-= 200;
+                                if(inputNum<10)
+                                 mainSize.height*=.15*inputNum;
+                                System.out.println(mainSize);
+                                scrollPane.setPreferredSize(mainSize);
+                                scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                                scrollPane.remove(scrollPane.getHorizontalScrollBar());
+                                mainFrame.add(scrollPane, mainFrame.MainFramegbc);
+                                mainFrame.MainFramegbc.gridy++;
                                 mainFrame.add(mainFrame.finishBtn, mainFrame.MainFramegbc);
                                 mainFrame.remove(mainFrame.lineQuestion);
                                 mainFrame.revalidate();

@@ -36,6 +36,7 @@ public class MemorizationFrame extends JFrame {
     MemorizationFrame() {
         projectData = new ProjectFileData();
         setTitle("App");
+        setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
