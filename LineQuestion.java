@@ -32,6 +32,7 @@ public class LineQuestion extends JPanel {
         question = new JLabel("How Many Lines");
         question.setForeground(Color.GRAY);
         scrollPanel= new JPanel();
+        scrollPanel.setBackground(Color.black);
         scrollPane = new JScrollPane(scrollPanel);
         lineQuestionLayout = new GridLayout();
 
