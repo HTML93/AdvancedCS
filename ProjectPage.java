@@ -38,7 +38,8 @@ public class ProjectPage extends JFrame {
     public ProjectFileData projectFileCall = new ProjectFileData();
     public ProjectPage mainProjectPage;
     public GridBagConstraints ProjectPageGBC = new GridBagConstraints();
-    public List<ProjectCreationPanel> projectPanels= new ArrayList<ProjectCreationPanel>();
+    public List<ProjectCreationPanel> projectPanels = new ArrayList<ProjectCreationPanel>();
+
     ProjectPage() {
         setTitle("Project Select");
         setLayout(new GridBagLayout());
@@ -66,9 +67,11 @@ public class ProjectPage extends JFrame {
             projectPanels.add(meaninglessVariableName);
         }
         add(new ProjectCreationPanel(), ProjectPageGBC);
-        for(int i= 0; i<projectPanels.size(); i++){
+        for (int i = 0; i < projectPanels.size(); i++) {
             projectPanels.get(i).setPreferredSize(ProjectCreationPanel.maxDimension);
         }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setVisible(true);
 
     }
