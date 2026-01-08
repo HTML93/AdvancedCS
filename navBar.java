@@ -27,9 +27,9 @@ public class navBar extends JPanel {
         containerCircle.circleBind();
         navContainer.add(containerCircle, JLayeredPane.DEFAULT_LAYER);
 
-        reciteCircle = new Circle(140, 20, 25, 25, Color.black, true);
+        reciteCircle = new Circle(150, 20, 25, 25, Color.black, true);
         editCircle = new Circle(110, 20, 25, 25, Color.black, true);
-        homeCircle = new Circle(80, 20, 25, 25, Color.black, true);
+        homeCircle = new Circle(70, 20, 25, 25, Color.black, true);
         reciteCircle.setBackground(Color.lightGray);
         homeCircle.setBackground(Color.lightGray);
         editCircle.setBackground(Color.lightGray);
@@ -46,10 +46,16 @@ public class navBar extends JPanel {
         homeButton.setBorder(BorderFactory.createEmptyBorder());
         homeButton.setForeground(Color.white);
         homeButton.setBackground(homeCircle.getColor());
-        homeButton.setBounds(85, 25, 15, 15);
+        homeButton.setBounds(75, 25, 15, 15);
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 {
+                    reciteCircle.setColor(Color.black);
+                    reciteButton.setBackground(Color.black);
+                    editButton.setBackground(Color.black);
+                    editCircle.setColor(Color.black);
+                    homeButton.setBackground(Color.gray);
+                    homeCircle.setColor(Color.gray);
                     System.out.println("home");
                 }
             }});
@@ -65,7 +71,13 @@ public class navBar extends JPanel {
         System.out.println(editButton.getText());
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                {
+                {   
+                    reciteCircle.setColor(Color.black);
+                    reciteButton.setBackground(Color.black);
+                    editButton.setBackground(Color.gray);
+                    editCircle.setColor(Color.gray);
+                    homeButton.setBackground(Color.black);
+                    homeCircle.setColor(Color.black);
                     System.out.println("edit");
                 }
             }});
@@ -76,11 +88,17 @@ public class navBar extends JPanel {
         reciteButton.setBorder(BorderFactory.createEmptyBorder());
         reciteButton.setForeground(Color.white);
         reciteButton.setBackground(reciteCircle.getColor());
-        reciteButton.setBounds(145, 25, 15, 15);
+        reciteButton.setBounds(155, 25, 15, 15);
         System.out.println(reciteButton.getText());
         reciteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                {
+                {   
+                    reciteCircle.setColor(Color.gray);
+                    reciteButton.setBackground(Color.gray);
+                    editButton.setBackground(Color.black);
+                    editCircle.setColor(Color.black);
+                    homeButton.setBackground(Color.black);
+                    homeCircle.setColor(Color.black);
                     System.out.println("recite");
                 }
             }});

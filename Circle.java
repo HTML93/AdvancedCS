@@ -35,6 +35,7 @@ import javax.swing.JPanel;
         return color;
     }
     public void setColor(Color c){
-        graphics.setColor(c);
+        color = c;
+        repaint();
     }
 }
