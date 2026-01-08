@@ -8,7 +8,7 @@ import javax.swing.JPanel;
     int x, y, width, height;
     Color color;
     boolean fillColor;
-
+    Graphics graphics;
     Circle(int xP, int yP, int w, int h, Color colorFill, boolean fill) {
         x = xP;
         y = yP;
@@ -20,7 +20,8 @@ import javax.swing.JPanel;
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        super.paintComponent(g); 
+        graphics = g;
         g.setColor(color);
         if (fillColor)
             g.fillOval(0, 0, width, height);
@@ -29,5 +30,11 @@ import javax.swing.JPanel;
     }
     public void circleBind(){
         this.setBounds(x, y, width, height);
+    }
+    public Color getColor(){
+        return color;
+    }
+    public void setColor(Color c){
+        graphics.setColor(c);
     }
 }
