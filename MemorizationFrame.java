@@ -53,6 +53,9 @@ public class MemorizationFrame extends JPanel {
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
+                lineQuestion.scrollPanel.setLayout(new GridLayout(linenum, 1));
+                lineQuestion.scrollPanel.revalidate();
+                lineQuestion.scrollPanel.repaint();
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
 
                     i.remove(i.title);
@@ -67,6 +70,8 @@ public class MemorizationFrame extends JPanel {
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
+                    lineQuestion.scrollPanel.remove(i);
+                    lineQuestion.scrollPanel.add(i);
                     MainFramegbc.gridy = linenum + 1;
                     MainFramegbc.gridx = 1;
                     linenum++;
@@ -83,6 +88,8 @@ public class MemorizationFrame extends JPanel {
                 MainFramegbc.gridy++;
                 add(restartButton, MainFramegbc);
                 MainFramegbc.gridy = -1;
+                lineQuestion.scrollPanel.revalidate();
+                lineQuestion.scrollPanel.repaint();
                 remove(finishBtn);
                 revalidate();
                 repaint();

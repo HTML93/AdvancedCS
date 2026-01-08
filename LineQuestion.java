@@ -98,6 +98,7 @@ public class LineQuestion extends JPanel {
                                 mainFrame.revalidate();
                                 mainFrame.repaint();
 
+
                             } else {
                                 lineAmt.setText("Enter a Number More than 0");
                             }
