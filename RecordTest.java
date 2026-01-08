@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 import java.util.ArrayList;
 
-public class RecordTest extends JPanel{
+public class RecordTest extends JPanel {
     public JButton startButton;
     public JButton endButton;
     public AudioFormat audioFormat;
@@ -30,71 +30,58 @@ public class RecordTest extends JPanel{
     public TargetDataLine targetLine;
     public JPanel recordContainer;
     public Boolean isRecording = false;
+
     RecordTest(String fileName) {
         recordContainer = new JPanel();
         recordContainer.setLayout(new GridLayout(1, 1));
         this.setBackground(Color.BLACK);
-        //start button
-        startButton= new JButton("Start Recording Line");
+        // start button
+        startButton = new JButton("Start Recording Line");
         startButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 recordGo(fileName);
-                isRecording= true;        
+                isRecording = true;
                 add(endButton);
                 remove(startButton);
                 revalidate();
                 repaint();
-            }});
+            }
+        });
 
-        //end recording button
+        // end recording button
         endButton = new JButton("End Recording");
         endButton.addActionListener((new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
-            targetLine.stop();
-            targetLine.close();
-            remove(endButton);
-            startButton.setText("Rerecord Line");
-            add(startButton);
-            isRecording = false;
-            revalidate();
-            repaint();
+            public void actionPerformed(ActionEvent e) {
+                targetLine.stop();
+                targetLine.close();
+                remove(endButton);
+                startButton.setText("Rerecord Line");
+                add(startButton);
+                isRecording = false;
+                revalidate();
+                repaint();
             }
         }));
 
         add(startButton);
         this.setVisible(true);
     }
-
     public void recordGo(String filePath) {
         try {
 
             audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24000, 16, 1, 2, 48000, false);
             dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
-            if (!AudioSystem.isLineSupported(dataInfo)) {
-                System.out.println("Not Sup");
-            }
 
             Mixer myMixer;
-            ArrayList<Mixer> mixerArray = new ArrayList<Mixer>();
             Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-
             for (int i = 0; i < mixerInfo.length; i++) {
                 myMixer = AudioSystem.getMixer(mixerInfo[i]);
-
-                if (myMixer.isLineSupported(Port.Info.MICROPHONE)) {
-                    mixerArray.add(myMixer);
-                }
-
             }
             targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
-
-
             targetLine.open();
-
-
             targetLine.start();
             Thread audioRecorderThread = new Thread() {
                 @Override
@@ -109,7 +96,7 @@ public class RecordTest extends JPanel{
                     System.out.println("finished");
                 }
             };
-            audioRecorderThread.start();    
+            audioRecorderThread.start();
         } catch (Exception e) {
             System.out.println(e);
         }

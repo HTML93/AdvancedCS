@@ -33,6 +33,7 @@ public class MemorizationFrame extends JFrame {
     public File audioFile;
     public ProjectFileData projectData;
     public String title;
+
     MemorizationFrame() {
         projectData = new ProjectFileData();
         setTitle("App");
@@ -55,7 +56,7 @@ public class MemorizationFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int linenum = 1;
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
-                    
+
                     i.remove(i.title);
                     i.remove(i.subButton);
                     i.remove(i.lineText);
@@ -63,7 +64,8 @@ public class MemorizationFrame extends JFrame {
                     i.remove(i.otherLine);
                     if (lineQuestion.title != null) {
                         String line = i.title.getText();
-                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording, i.otherLineSelected, lineQuestion.timePlay);
+                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording,
+                                i.otherLineSelected, lineQuestion.timePlay);
                     }
                     i.revalidate();
                     i.repaint();
@@ -73,7 +75,8 @@ public class MemorizationFrame extends JFrame {
                     linenum++;
                 }
                 if (lineQuestion.title != null) {
-                    projectData.outLines();}
+                    projectData.outLines();
+                }
                 MainFramegbc.gridy++;
                 if (lineQuestion.islineRecording) {
                     add(playButton, MainFramegbc);
@@ -161,8 +164,8 @@ public class MemorizationFrame extends JFrame {
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(title==null){
-                    title=lineQuestion.title;
+                if (title == null) {
+                    title = lineQuestion.title;
                 }
                 String currentAudioFile = currentLine + title + "input.wav";
                 audioFile = new File(currentAudioFile);
@@ -173,17 +176,8 @@ public class MemorizationFrame extends JFrame {
         });
 
         add(lineQuestion);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                for (int i = 0; i < lineQuestion.lineInputContainers.size(); i++) {
-                    File fileToDelete = new File(i + "input.wav");
-                    fileToDelete.delete();
-                }
-                System.exit(0);
-            }
-        });
         setVisible(true);
 
     }
