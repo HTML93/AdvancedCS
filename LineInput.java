@@ -47,7 +47,7 @@ public class LineInput extends JPanel {
         // edit button
         editButton = new JButton("Edit");
         editButton.setForeground(Color.gray);
-
+        System.out.println(islineRecording);
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 remove(editButton);

@@ -19,7 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.util.Timer;
 
-public class MemorizationFrame extends JFrame {
+public class MemorizationFrame extends JPanel {
     public JButton finishBtn;
     public MemorizationFrame mainFrame;
     public GridBagConstraints MainFramegbc;
@@ -36,12 +36,10 @@ public class MemorizationFrame extends JFrame {
 
     MemorizationFrame() {
         projectData = new ProjectFileData();
-        setTitle("App");
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        this.getContentPane().setBackground(Color.BLACK);
+        setBackground(Color.BLACK);
 
         MainFramegbc = new GridBagConstraints();
 
@@ -64,8 +62,7 @@ public class MemorizationFrame extends JFrame {
                     i.remove(i.otherLine);
                     if (lineQuestion.title != null) {
                         String line = i.title.getText();
-                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording,
-                                i.otherLineSelected, lineQuestion.timePlay);
+                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording, i.otherLineSelected, lineQuestion.timePlay);
                     }
                     i.revalidate();
                     i.repaint();
@@ -176,7 +173,6 @@ public class MemorizationFrame extends JFrame {
         });
 
         add(lineQuestion);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setVisible(true);
 

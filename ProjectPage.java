@@ -1,7 +1,4 @@
-import javax.swing.JFrame;
-
 import org.json.JSONArray;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -34,29 +31,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.util.Timer;
 
-public class ProjectPage extends JFrame {
+public class ProjectPage extends JPanel {
     public ProjectFileData projectFileCall = new ProjectFileData();
     public ProjectPage mainProjectPage;
     public GridBagConstraints ProjectPageGBC = new GridBagConstraints();
     public List<ProjectCreationPanel> projectPanels = new ArrayList<ProjectCreationPanel>();
 
-    ProjectPage() {
-        setTitle("Project Select");
+    ProjectPage(frameContainer frame) {
         setLayout(new GridBagLayout());
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setBackground(Color.BLACK);
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
         ProjectPageGBC.gridy = 0;
         ProjectPageGBC.gridx = 0;
         ArrayList<String> projects = ProjectFileData.retrieveFile("projects.json");
         for (int i = 0; i < projects.size(); i++) {
-            ProjectCreationPanel meaninglessVariableName = new ProjectCreationPanel(projects.get(i));
+            ProjectCreationPanel meaninglessVariableName = new ProjectCreationPanel(projects.get(i), frame);
             add(meaninglessVariableName, ProjectPageGBC);
             if (ProjectPageGBC.gridx == 1) {
                 ProjectPageGBC.gridx = 0;
@@ -66,11 +53,11 @@ public class ProjectPage extends JFrame {
             }
             projectPanels.add(meaninglessVariableName);
         }
-        add(new ProjectCreationPanel(), ProjectPageGBC);
+        add(new ProjectCreationPanel(frame), ProjectPageGBC);
         for (int i = 0; i < projectPanels.size(); i++) {
             projectPanels.get(i).setPreferredSize(ProjectCreationPanel.maxDimension);
         }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBackground(Color.BLACK);
 
         setVisible(true);
 

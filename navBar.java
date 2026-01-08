@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class navBar extends JPanel {
+public class NavBar extends JPanel {
     Circle containerCircle;
     JLayeredPane navContainer;
     JButton homeButton;
@@ -19,7 +19,7 @@ public class navBar extends JPanel {
     Circle editCircle;
     Circle reciteCircle;
 
-    navBar() {
+    NavBar() {
         navContainer = new JLayeredPane();
         navContainer.setPreferredSize(new Dimension(250, 75));
         
@@ -103,7 +103,10 @@ public class navBar extends JPanel {
                 }
             }});
         navContainer.add(reciteButton, JLayeredPane.MODAL_LAYER);
-
+        setBorder(BorderFactory.createEmptyBorder());
+        navContainer.setBackground(Color.BLACK);
+        setBackground(Color.BLACK);
+        navContainer.setOpaque(true);
         add(navContainer);
         for (int i = 0; i < navContainer.getComponents().length; i++) {
             System.out.println(navContainer.getComponents()[i].getLocation());

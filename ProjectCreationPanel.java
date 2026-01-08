@@ -27,7 +27,7 @@ public class ProjectCreationPanel extends JPanel {
     }
     public JButton openButton;
 
-    ProjectCreationPanel(String name) {
+    ProjectCreationPanel(String name, frameContainer frame) {
         projectBox = new JPanel();
 
         this.setBackground(Color.black);
@@ -40,7 +40,7 @@ public class ProjectCreationPanel extends JPanel {
         title.setForeground(Color.gray);
         ProjectOpenGBC.gridx = 1;
         ProjectOpenGBC.gridy = 1;
-        System.out.println("title: "+ProjectOpenGBC.gridy);
+        System.out.println("title: " + ProjectOpenGBC.gridy);
         title.setBorder(blankBorder);
         add(title, ProjectOpenGBC);
 
@@ -48,12 +48,12 @@ public class ProjectCreationPanel extends JPanel {
 
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openProject(name + ".json", name);
+                openProject(name + ".json", name, frame);
                 System.out.println("name: " + name);
             }
         });
         ProjectOpenGBC.gridy++;
-        System.out.println("open: "+ProjectOpenGBC.gridy);
+        System.out.println("open: " + ProjectOpenGBC.gridy);
         add(openButton, ProjectOpenGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
             maxDimension.height = this.getPreferredSize().height;
@@ -63,7 +63,7 @@ public class ProjectCreationPanel extends JPanel {
         }
     }
 
-    ProjectCreationPanel() {
+    ProjectCreationPanel(frameContainer frame) {
         projectBox = new JPanel();
         this.setBackground(Color.black);
         this.setLayout(new GridBagLayout());
@@ -76,17 +76,17 @@ public class ProjectCreationPanel extends JPanel {
         title.setForeground(Color.gray);
         ProjectCreationGBC.gridx = 1;
         ProjectCreationGBC.gridy = 1;
-        System.out.println("Create Title: "+ ProjectCreationGBC.gridy);
+        System.out.println("Create Title: " + ProjectCreationGBC.gridy);
         add(title, ProjectCreationGBC);
-        //Create button
+        // Create button
         openButton = new JButton("Create");
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createProject();
+                createProject(frame);
             }
         });
         ProjectCreationGBC.gridy++;
-                System.out.println("createbtn: "+ProjectCreationGBC.gridy);
+        System.out.println("createbtn: " + ProjectCreationGBC.gridy);
 
         add(openButton, ProjectCreationGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
@@ -100,7 +100,7 @@ public class ProjectCreationPanel extends JPanel {
         setPreferredSize(maxDimension);
     }
 
-    public void openProject(String fileName, String name) {
+    public void openProject(String fileName, String name, frameContainer frame) {
         ArrayList<Object> project = new ArrayList<Object>();
 
         try {
@@ -123,54 +123,73 @@ public class ProjectCreationPanel extends JPanel {
             System.out.println(e);
         }
         MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame();
-        randomlyGeneratedVariableName.title = name; 
+        randomlyGeneratedVariableName.title = name;
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
-        int linenum=0;
+        int linenum = 0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
             System.out.println(currentLine);
-            randomlyGeneratedVariableName.MainFramegbc.gridx=1;
+            randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
             linenum++;
             for (Object key : currentLine.keySet()) {
-                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine.get(key.toString());
-                System.out.println("current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
-                randomlyGeneratedVariableName.MainFramegbc.gridy=linenum;
-                LineInput currentLineTitle = new LineInput(i + 1, false,(boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
+                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
+                        .get(key.toString());
+                System.out.println(
+                        "current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
+                randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
+                LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
-                if ((boolean)idkWhatToCallcertainVariablesanymore.get("otherLine")==true){
+                if ((boolean) idkWhatToCallcertainVariablesanymore.get("otherLine") == true) {
                     currentLineTitle.title.setForeground(Color.blue);
-                    currentLineTitle.otherLineSelected=true;
+                    currentLineTitle.otherLineSelected = true;
                 }
-                randomlyGeneratedVariableName.lineQuestion.timePlay = (int)(long)idkWhatToCallcertainVariablesanymore.get("recordLength"); 
-                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean)idkWhatToCallcertainVariablesanymore.get("islineRecording"); 
+               /*  if ((boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording") == true) {
+                    currentLineTitle.title.setForeground(Color.blue);
+                    currentLineTitle.otherLineSelected = true;
+                }*/
+                randomlyGeneratedVariableName.lineQuestion.timePlay = (int) (long) idkWhatToCallcertainVariablesanymore.get("recordLength");
+                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording");
                 currentLineTitle.remove(currentLineTitle.lineText);
                 currentLineTitle.remove(currentLineTitle.subButton);
                 currentLineTitle.remove(currentLineTitle.otherLine);
-                currentLineTitle.gbc.gridy=2;
+                currentLineTitle.gbc.gridy = 2;
                 currentLineTitle.add(currentLineTitle.editButton, currentLineTitle.gbc);
                 randomlyGeneratedVariableName.add(currentLineTitle, randomlyGeneratedVariableName.MainFramegbc);
                 currentLineTitle.revalidate();
                 currentLineTitle.repaint();
                 currentLineTitle.setBorder(null);
 
-                randomlyGeneratedVariableName.lineQuestion.lineInputContainers.put("input"+Integer.toString(linenum-1), currentLineTitle);
+                randomlyGeneratedVariableName.lineQuestion.lineInputContainers
+                        .put("input" + Integer.toString(linenum - 1), currentLineTitle);
                 System.out.println(fileName);
             }
-           randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
-                randomlyGeneratedVariableName.MainFramegbc.gridy++;
-                randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn, randomlyGeneratedVariableName.MainFramegbc);
-                /*if (lineQuestion.islineRecording) {
-                    add(randomlyGeneratedVariableName.playButton, randomlyGeneratedVariableName.MainFramegbc);
-                }*/
-               System.out.println(randomlyGeneratedVariableName.lineQuestion.lineInputContainers);
+            randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
+            randomlyGeneratedVariableName.MainFramegbc.gridy++;
+            randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn,
+                    randomlyGeneratedVariableName.MainFramegbc);
+            /*
+             * if (lineQuestion.islineRecording) {
+             * add(randomlyGeneratedVariableName.playButton,
+             * randomlyGeneratedVariableName.MainFramegbc);
+             * }
+             */
+            System.out.println(randomlyGeneratedVariableName.lineQuestion.lineInputContainers);
         }
+        frame.add(randomlyGeneratedVariableName);
+        frame.remove(frame.projPage);
+        frame.repaint();
+        frame.revalidate();
 
     }
 
-    public void createProject() {
+    public void createProject(frameContainer frame) {
         MemorizationFrame creationFrame = new MemorizationFrame();
+        frame.add(creationFrame);
+        frame.remove(frame.projPage);
+        frame.repaint();
+        frame.revalidate();
 
     }
 }
