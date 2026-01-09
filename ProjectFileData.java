@@ -45,7 +45,7 @@ public class ProjectFileData {
         }
         try (FileWriter file = new FileWriter(projectTitle + ".json")) {
             file.write(jsonArray.toString());
-            System.out.println("\nJSON Object: " + jsonArray);
+
         } catch (Exception e) {
             System.out.println(e);
 

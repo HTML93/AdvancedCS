@@ -108,9 +108,6 @@ public class NavBar extends JPanel {
         setBackground(Color.BLACK);
         navContainer.setOpaque(true);
         add(navContainer);
-        for (int i = 0; i < navContainer.getComponents().length; i++) {
-            System.out.println(navContainer.getComponents()[i].getLocation());
-        }
 
     }
 }

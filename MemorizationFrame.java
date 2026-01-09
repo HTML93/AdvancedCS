@@ -102,7 +102,7 @@ public class MemorizationFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 {
                     String currentLineName = "input" + currentLine;
-                    System.out.println(currentLineName);
+
                     LineInput currentLineInput = lineQuestion.lineInputContainers.get(currentLineName);
                     if (currentLineInput == null) {
                         MainFramegbc.gridy = 0;
@@ -206,10 +206,9 @@ public class MemorizationFrame extends JPanel {
         } catch (Exception d) {
             System.out.println(d);
         }
+        setBackground(Color.white);
     }
 
-    public void main(String args[]) {
-    }
 
     public Boolean checkFinish(LineInput lineinput) {
         if (lineinput.title.getText() != null) {

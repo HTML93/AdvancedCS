@@ -40,7 +40,7 @@ public class ProjectCreationPanel extends JPanel {
         title.setForeground(Color.gray);
         ProjectOpenGBC.gridx = 1;
         ProjectOpenGBC.gridy = 1;
-        System.out.println("title: " + ProjectOpenGBC.gridy);
+
         title.setBorder(blankBorder);
         add(title, ProjectOpenGBC);
 
@@ -49,11 +49,11 @@ public class ProjectCreationPanel extends JPanel {
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openProject(name + ".json", name, frame);
-                System.out.println("name: " + name);
+
             }
         });
         ProjectOpenGBC.gridy++;
-        System.out.println("open: " + ProjectOpenGBC.gridy);
+
         add(openButton, ProjectOpenGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
             maxDimension.height = this.getPreferredSize().height;
@@ -76,7 +76,7 @@ public class ProjectCreationPanel extends JPanel {
         title.setForeground(Color.gray);
         ProjectCreationGBC.gridx = 1;
         ProjectCreationGBC.gridy = 1;
-        System.out.println("Create Title: " + ProjectCreationGBC.gridy);
+
         add(title, ProjectCreationGBC);
         // Create button
         openButton = new JButton("Create");
@@ -86,7 +86,7 @@ public class ProjectCreationPanel extends JPanel {
             }
         });
         ProjectCreationGBC.gridy++;
-        System.out.println("createbtn: " + ProjectCreationGBC.gridy);
+
 
         add(openButton, ProjectCreationGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
@@ -107,17 +107,17 @@ public class ProjectCreationPanel extends JPanel {
             File projectFile = new File(fileName);
 
             if (projectFile.exists() && projectFile.length() > 0) {
-                System.out.println("exists");
+
                 JSONParser parser = new JSONParser();
                 Object obj = parser.parse(new FileReader(projectFile));
                 org.json.simple.JSONArray listObj = (org.json.simple.JSONArray) obj;
-                System.out.println(listObj);
+
                 for (int i = 0; i < listObj.size(); i++) {
                     project.add(listObj.get(i));
                 }
             }
 
-            System.out.println("project: " + project);
+
 
         } catch (Exception e) {
             System.out.println(e);
@@ -129,14 +129,13 @@ public class ProjectCreationPanel extends JPanel {
         int linenum = 0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
-            System.out.println(currentLine);
+
             randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
             linenum++;
             for (Object key : currentLine.keySet()) {
                 org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
                         .get(key.toString());
-                System.out.println(
-                        "current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
+
                 randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
                 LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
@@ -163,7 +162,7 @@ public class ProjectCreationPanel extends JPanel {
 
                 randomlyGeneratedVariableName.lineQuestion.lineInputContainers
                         .put("input" + Integer.toString(linenum - 1), currentLineTitle);
-                System.out.println(fileName);
+
             }
             randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
@@ -175,7 +174,7 @@ public class ProjectCreationPanel extends JPanel {
              * randomlyGeneratedVariableName.MainFramegbc);
              * }
              */
-            System.out.println(randomlyGeneratedVariableName.lineQuestion.lineInputContainers);
+
         }
         frame.add(randomlyGeneratedVariableName);
         frame.remove(frame.projPage);
