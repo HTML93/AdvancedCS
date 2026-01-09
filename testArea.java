@@ -21,7 +21,7 @@ public class testArea extends JFrame {
         setLayout(new FlowLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setBackground(Color.BLACK);
-        add(new NavBar());
+        //add(new NavBar());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }

@@ -36,7 +36,7 @@ public class frameContainer extends JFrame{
 
         Framegbc = new GridBagConstraints();
         projPage = new ProjectPage(this);
-        navBar = new NavBar();
+        navBar = new NavBar(this);
         Framegbc.gridy=2;
         add(navBar, Framegbc);
         Framegbc.gridy=1;

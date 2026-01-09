@@ -87,7 +87,6 @@ public class ProjectCreationPanel extends JPanel {
         });
         ProjectCreationGBC.gridy++;
 
-
         add(openButton, ProjectCreationGBC);
         if (this.getPreferredSize().height > maxDimension.height) {
             maxDimension.height = this.getPreferredSize().height;
@@ -117,8 +116,6 @@ public class ProjectCreationPanel extends JPanel {
                 }
             }
 
-
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -137,19 +134,25 @@ public class ProjectCreationPanel extends JPanel {
                         .get(key.toString());
 
                 randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
-                LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
+                LineInput currentLineTitle = new LineInput(i + 1, false,
+                        (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 if ((boolean) idkWhatToCallcertainVariablesanymore.get("otherLine") == true) {
                     currentLineTitle.title.setForeground(Color.blue);
                     currentLineTitle.otherLineSelected = true;
                 }
-               /*  if ((boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording") == true) {
-                    currentLineTitle.title.setForeground(Color.blue);
-                    currentLineTitle.otherLineSelected = true;
-                }*/
-                randomlyGeneratedVariableName.lineQuestion.timePlay = (int) (long) idkWhatToCallcertainVariablesanymore.get("recordLength");
-                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording");
+                /*
+                 * if ((boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording") ==
+                 * true) {
+                 * currentLineTitle.title.setForeground(Color.blue);
+                 * currentLineTitle.otherLineSelected = true;
+                 * }
+                 */
+                randomlyGeneratedVariableName.lineQuestion.timePlay = (int) (long) idkWhatToCallcertainVariablesanymore
+                        .get("recordLength");
+                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean) idkWhatToCallcertainVariablesanymore
+                        .get("islineRecording");
                 currentLineTitle.remove(currentLineTitle.lineText);
                 currentLineTitle.remove(currentLineTitle.subButton);
                 currentLineTitle.remove(currentLineTitle.otherLine);
@@ -168,12 +171,11 @@ public class ProjectCreationPanel extends JPanel {
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
             randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn,
                     randomlyGeneratedVariableName.MainFramegbc);
-            /*
-             * if (lineQuestion.islineRecording) {
-             * add(randomlyGeneratedVariableName.playButton,
-             * randomlyGeneratedVariableName.MainFramegbc);
-             * }
-             */
+
+            if (randomlyGeneratedVariableName.lineQuestion.islineRecording) {
+                add(randomlyGeneratedVariableName.playButton,
+                        randomlyGeneratedVariableName.MainFramegbc);
+            }
 
         }
         frame.add(randomlyGeneratedVariableName);
