@@ -59,17 +59,11 @@ public class LineQuestion extends JPanel {
                                 if (isOtherLines.isSelected()) {
                                     hasOtherLines = true;
                                 }
-                                int columns = 2;
-                                while (inputNum % columns!=0&&columns<6){
-                                    columns++;
-                                }
-                                lineQuestionLayout.setColumns(columns);
-                                System.out.println(columns);
-                                int rows = inputNum/columns;
-                                if (inputNum%columns!=0)
-                                    rows++;
+                                int columns = 6;
+                                
+                               lineQuestionLayout.setColumns(columns);
+                                int rows = (inputNum/columns)+1;
                                 lineQuestionLayout.setRows(rows);
-                                System.out.print(inputNum/columns);
                                 scrollPanel.setLayout(lineQuestionLayout);
 
                                 for (int i = 0; i < inputNum; i++) {
@@ -84,9 +78,8 @@ public class LineQuestion extends JPanel {
                                 mainFrame.MainFramegbc.gridy = inputNum + 1;
                                 scrollPane.setBackground(Color.BLACK);
                                 Dimension mainSize = mainFrame.getSize();
-                                mainSize.height-= 200;
-                                if(inputNum<10)
-                                 mainSize.height*=.15*inputNum;
+                                if(inputNum<12)
+                                 mainSize.height=mainFrame.getHeight()-200;
                                 System.out.println(mainSize);
                                 scrollPane.setPreferredSize(mainSize);
                                 scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
