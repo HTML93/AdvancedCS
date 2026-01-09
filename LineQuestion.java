@@ -64,7 +64,9 @@ public class LineQuestion extends JPanel {
                                lineQuestionLayout.setColumns(columns);
                                 int rows = (inputNum/columns)+1;
                                 lineQuestionLayout.setRows(rows);
+                                System.out.println(lineQuestionLayout.getRows() +" "+ rows);
                                 scrollPanel.setLayout(lineQuestionLayout);
+                                System.out.println(scrollPanel.getLayout());
 
                                 for (int i = 0; i < inputNum; i++) {
                                     mainFrame.MainFramegbc.gridy = i + 1;
@@ -78,11 +80,12 @@ public class LineQuestion extends JPanel {
                                 mainFrame.MainFramegbc.gridy = inputNum + 1;
                                 scrollPane.setBackground(Color.BLACK);
                                 Dimension mainSize = mainFrame.getSize();
-                                if(inputNum<12)
-                                 mainSize.height=mainFrame.getHeight()-200;
+
+                                mainSize.height+=mainFrame.getHeight()*3;
                                 System.out.println(mainSize);
                                 scrollPane.setPreferredSize(mainSize);
-                                scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                              // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                                //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
                                 scrollPane.remove(scrollPane.getHorizontalScrollBar());
                                 mainFrame.add(scrollPane, mainFrame.MainFramegbc);
                                 mainFrame.MainFramegbc.gridy++;
