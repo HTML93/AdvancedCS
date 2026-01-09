@@ -1,3 +1,4 @@
+package src;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,8 +60,9 @@ public class LineInput extends JPanel {
                     gbc.gridy = 3;
                     add(lineRecorder, gbc);
                 }
+                if(hasOtherLines){
                 gbc.gridy = 4;
-                add(otherLine, gbc);
+                add(otherLine, gbc);}
 
                 gbc.gridy = 5;
                 add(subButton, gbc);

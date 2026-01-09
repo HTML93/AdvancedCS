@@ -1,3 +1,4 @@
+package src;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -72,14 +73,16 @@ public class MemorizationFrame extends JFrame {
                     MainFramegbc.gridx = 1;
                     linenum++;
                 }
+                MainFramegbc.gridy++;
+                add(nextButton, MainFramegbc);
                 if (lineQuestion.title != null) {
                     projectData.outLines();}
                 MainFramegbc.gridy++;
                 if (lineQuestion.islineRecording) {
+                    MainFramegbc.gridy++;
                     add(playButton, MainFramegbc);
                 }
-                MainFramegbc.gridy++;
-                add(nextButton, MainFramegbc);
+                
                 MainFramegbc.gridy++;
                 add(restartButton, MainFramegbc);
                 MainFramegbc.gridy = -1;
@@ -104,6 +107,7 @@ public class MemorizationFrame extends JFrame {
                         congaRats.setForeground(Color.BLUE);
                         add(congaRats, MainFramegbc);
                         remove(nextButton);
+                        remove(playButton);
                     } else {
                         MainFramegbc.gridy = currentLine;
                         currentLineInput.add(currentLineInput.title, MainFramegbc);
@@ -146,6 +150,7 @@ public class MemorizationFrame extends JFrame {
                     i.setBorder(null);
                     MainFramegbc.gridy++;
                 }
+                MainFramegbc.gridy++;
                 add(nextButton, MainFramegbc);
                 currentLine = 0;
                 remove(finishBtn);
