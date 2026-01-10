@@ -36,16 +36,34 @@ public class ProjectPage extends JPanel {
     public ProjectPage mainProjectPage;
     public GridBagConstraints ProjectPageGBC = new GridBagConstraints();
     public List<ProjectCreationPanel> projectPanels = new ArrayList<ProjectCreationPanel>();
-
-    ProjectPage(frameContainer frame) {
+    ArrayList<String> projects;
+    frameContainer frame;
+    public ProjectPage(frameContainer f) {
+        frame = f;
         setLayout(new GridBagLayout());
         ProjectPageGBC.gridy = 0;
         ProjectPageGBC.gridx = 0;
-        ArrayList<String> projects = ProjectFileData.retrieveFile("projects.json");
-        for (int i = 0; i < projects.size(); i++) {
-            ProjectCreationPanel meaninglessVariableName = new ProjectCreationPanel(projects.get(i), frame);
+        projects = ProjectFileData.retrieveFile("projects.json");
+        addProjs(projects);
+        setBackground(Color.BLACK);
+
+        setVisible(true);
+
+    }
+
+    public void checkForNew() {
+        ArrayList<String> newProjects = ProjectFileData.retrieveFile("projects.json");
+        if (projects!=newProjects){
+            this.removeAll();
+            addProjs(newProjects);
+        }
+    }
+    private void addProjs(ArrayList<String> project){
+        System.out.println(project);
+        for (int i = 0; i < project.size(); i++) {
+            ProjectCreationPanel meaninglessVariableName = new ProjectCreationPanel(project.get(i), frame);
             add(meaninglessVariableName, ProjectPageGBC);
-            if (ProjectPageGBC.gridx == 1) {
+            if (ProjectPageGBC.gridx == 2) {
                 ProjectPageGBC.gridx = 0;
                 ProjectPageGBC.gridy++;
             } else {
@@ -57,13 +75,5 @@ public class ProjectPage extends JPanel {
         for (int i = 0; i < projectPanels.size(); i++) {
             projectPanels.get(i).setPreferredSize(ProjectCreationPanel.maxDimension);
         }
-        setBackground(Color.BLACK);
-
-        setVisible(true);
-
-    }
-
-    void main() {
-
     }
 }

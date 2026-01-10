@@ -91,6 +91,7 @@ public class LineQuestion extends JPanel {
                                 mainFrame.MainFramegbc.gridy++;
                                 mainFrame.add(mainFrame.finishBtn, mainFrame.MainFramegbc);
                                 mainFrame.remove(mainFrame.lineQuestion);
+                                mainFrame.frame.openedProject=titleName.getText();
                                 mainFrame.revalidate();
                                 mainFrame.repaint();
 

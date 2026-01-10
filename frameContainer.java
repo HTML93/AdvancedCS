@@ -26,6 +26,7 @@ public class frameContainer extends JFrame{
     GridBagConstraints Framegbc;
     ProjectPage projPage;
     MemorizationFrame memPanel;
+    String openedProject;
     frameContainer() {
         setTitle("App");
         setBackground(Color.BLACK);
@@ -38,14 +39,14 @@ public class frameContainer extends JFrame{
         projPage = new ProjectPage(this);
         navBar = new NavBar(this);
         Framegbc.gridy=2;
-        add(navBar, Framegbc);
+        //add(navBar, Framegbc);
         Framegbc.gridy=1;
         add(projPage, Framegbc);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setVisible(true);
     }
-    void main(){
-
+    public static void main(String[] args) {
+        
     }
 }

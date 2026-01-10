@@ -33,14 +33,13 @@ public class MemorizationFrame extends JPanel {
     public File audioFile;
     public ProjectFileData projectData;
     public String title;
-
-    MemorizationFrame() {
+    public frameContainer frame;
+    MemorizationFrame(frameContainer f) {
         projectData = new ProjectFileData();
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
-
         setBackground(Color.BLACK);
-
+        frame = f;
         MainFramegbc = new GridBagConstraints();
 
         lineQuestion = new LineQuestion(this);
@@ -52,6 +51,7 @@ public class MemorizationFrame extends JPanel {
         finishBtn.setForeground(Color.gray);
         finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                System.out.println("afsdfasdf");
                 int linenum = 1;
                 lineQuestion.scrollPanel.setLayout(new GridLayout(linenum, 1));
                 lineQuestion.scrollPanel.revalidate();
@@ -76,6 +76,9 @@ public class MemorizationFrame extends JPanel {
                     MainFramegbc.gridx = 1;
                     linenum++;
                 }
+                MainFramegbc.gridy++;
+                lineQuestion.scrollPane.setBackground(Color.black);
+                add(lineQuestion.scrollPane, MainFramegbc);
                 if (lineQuestion.title != null) {
                     projectData.outLines();
                 }
@@ -114,7 +117,6 @@ public class MemorizationFrame extends JPanel {
                     } else {
                         MainFramegbc.gridy = currentLine;
                         currentLineInput.add(currentLineInput.title, MainFramegbc);
-
                         if (currentLineInput.otherLineSelected == true) {
 
                             int nextCheckedLine = currentLine + 1;
@@ -153,6 +155,8 @@ public class MemorizationFrame extends JPanel {
                     i.setBorder(null);
                     MainFramegbc.gridy++;
                 }
+                MainFramegbc.gridy++;
+                MainFramegbc.gridy++;
                 add(nextButton, MainFramegbc);
                 currentLine = 0;
                 remove(finishBtn);

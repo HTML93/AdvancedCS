@@ -91,8 +91,4 @@ public class ProjectFileData {
         }
     }
 
-    public void Main() {
-
-    }
-
 }

@@ -101,7 +101,16 @@ public class ProjectCreationPanel extends JPanel {
 
     public void openProject(String fileName, String name, frameContainer frame) {
         ArrayList<Object> project = new ArrayList<Object>();
-
+        frame.openedProject = name;
+        frame.Framegbc.gridy=100;
+        
+        frame.navBar.reciteCircle.setColor(Color.black);
+        frame.navBar.reciteButton.setBackground(Color.black);
+        frame.navBar.editButton.setBackground(Color.DARK_GRAY);
+        frame.navBar.editCircle.setColor(Color.DARK_GRAY);
+        frame.navBar.homeButton.setBackground(Color.black);
+        frame.navBar.homeCircle.setColor(Color.black);
+        frame.add(frame.navBar, frame.Framegbc);
         try {
             File projectFile = new File(fileName);
 
@@ -119,7 +128,7 @@ public class ProjectCreationPanel extends JPanel {
         } catch (Exception e) {
             System.out.println(e);
         }
-        MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame();
+        MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame(frame);
         randomlyGeneratedVariableName.title = name;
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
@@ -132,10 +141,10 @@ public class ProjectCreationPanel extends JPanel {
             for (Object key : currentLine.keySet()) {
                 org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
                         .get(key.toString());
+                System.out.println("current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
 
                 randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
-                LineInput currentLineTitle = new LineInput(i + 1, false,
-                        (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
+                LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 if ((boolean) idkWhatToCallcertainVariablesanymore.get("otherLine") == true) {
@@ -186,8 +195,10 @@ public class ProjectCreationPanel extends JPanel {
     }
 
     public void createProject(frameContainer frame) {
-        MemorizationFrame creationFrame = new MemorizationFrame();
+        MemorizationFrame creationFrame = new MemorizationFrame(frame);
         frame.add(creationFrame);
+        frame.Framegbc.gridy=100;
+        frame.add(frame.navBar, frame.Framegbc);
         frame.remove(frame.projPage);
         frame.repaint();
         frame.revalidate();
