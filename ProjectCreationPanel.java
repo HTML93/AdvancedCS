@@ -20,6 +20,8 @@ public class ProjectCreationPanel extends JPanel {
     public JLabel title;
     public JPanel projectBox;
     public ArrayList projectFile;
+    public JScrollPane scrollPane;
+    public JPanel scrollPanel;
     public static Dimension maxDimension = new Dimension();
     static {
         maxDimension.height = 0;
@@ -29,7 +31,7 @@ public class ProjectCreationPanel extends JPanel {
 
     ProjectCreationPanel(String name, frameContainer frame) {
         projectBox = new JPanel();
-
+        
         this.setBackground(Color.black);
         this.setLayout(new GridBagLayout());
         GridBagConstraints ProjectOpenGBC = new GridBagConstraints();
@@ -102,8 +104,8 @@ public class ProjectCreationPanel extends JPanel {
     public void openProject(String fileName, String name, frameContainer frame) {
         ArrayList<Object> project = new ArrayList<Object>();
         frame.openedProject = name;
-        frame.Framegbc.gridy=100;
-        
+        frame.Framegbc.gridy = 100;
+
         frame.navBar.reciteCircle.setColor(Color.black);
         frame.navBar.reciteButton.setBackground(Color.black);
         frame.navBar.editButton.setBackground(Color.DARK_GRAY);
@@ -111,6 +113,10 @@ public class ProjectCreationPanel extends JPanel {
         frame.navBar.homeButton.setBackground(Color.black);
         frame.navBar.homeCircle.setColor(Color.black);
         frame.add(frame.navBar, frame.Framegbc);
+        scrollPanel = new JPanel();
+        scrollPanel.setBackground(Color.black);
+        scrollPane = new JScrollPane(scrollPanel);
+        
         try {
             File projectFile = new File(fileName);
 
@@ -132,6 +138,9 @@ public class ProjectCreationPanel extends JPanel {
         randomlyGeneratedVariableName.title = name;
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
+        GridLayout editLayout = new GridLayout();
+        editLayout.setColumns(6);
+        scrollPanel.setLayout(editLayout);
         int linenum = 0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
@@ -139,9 +148,7 @@ public class ProjectCreationPanel extends JPanel {
             randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
             linenum++;
             for (Object key : currentLine.keySet()) {
-                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
-                        .get(key.toString());
-                System.out.println("current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
+                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine.get(key.toString());
 
                 randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
                 LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
@@ -167,7 +174,7 @@ public class ProjectCreationPanel extends JPanel {
                 currentLineTitle.remove(currentLineTitle.otherLine);
                 currentLineTitle.gbc.gridy = 2;
                 currentLineTitle.add(currentLineTitle.editButton, currentLineTitle.gbc);
-                randomlyGeneratedVariableName.add(currentLineTitle, randomlyGeneratedVariableName.MainFramegbc);
+                scrollPanel.add(currentLineTitle);
                 currentLineTitle.revalidate();
                 currentLineTitle.repaint();
                 currentLineTitle.setBorder(null);
@@ -177,16 +184,27 @@ public class ProjectCreationPanel extends JPanel {
 
             }
             randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
+            scrollPane.setBackground(Color.BLACK);
+            Dimension mainSize = randomlyGeneratedVariableName.getSize();
+            mainSize.height += 500;
+            mainSize.width += 500;
+            System.out.println(mainSize);
+            scrollPane.setPreferredSize(mainSize);
+            // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            // scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            scrollPane.remove(scrollPane.getHorizontalScrollBar());
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
-            randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn,
-                    randomlyGeneratedVariableName.MainFramegbc);
 
+            randomlyGeneratedVariableName.add(scrollPane, randomlyGeneratedVariableName.MainFramegbc);
+            randomlyGeneratedVariableName.MainFramegbc.gridy++;
+            randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn, randomlyGeneratedVariableName.MainFramegbc);
             if (randomlyGeneratedVariableName.lineQuestion.islineRecording) {
                 add(randomlyGeneratedVariableName.playButton,
                         randomlyGeneratedVariableName.MainFramegbc);
             }
 
         }
+
         frame.add(randomlyGeneratedVariableName);
         frame.remove(frame.projPage);
         frame.repaint();
@@ -197,7 +215,13 @@ public class ProjectCreationPanel extends JPanel {
     public void createProject(frameContainer frame) {
         MemorizationFrame creationFrame = new MemorizationFrame(frame);
         frame.add(creationFrame);
-        frame.Framegbc.gridy=100;
+        frame.Framegbc.gridy = 100;
+        File file = new File("projects.json");
+        if (file.exists() == false || ProjectFileData.retrieveFile("projects.json").size() == 0) {
+            frame.navBar.editButton.setEnabled(false);
+            frame.navBar.reciteButton.setEnabled(false);
+        }
+
         frame.add(frame.navBar, frame.Framegbc);
         frame.remove(frame.projPage);
         frame.repaint();

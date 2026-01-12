@@ -34,6 +34,7 @@ public class MemorizationFrame extends JPanel {
     public ProjectFileData projectData;
     public String title;
     public frameContainer frame;
+
     MemorizationFrame(frameContainer f) {
         projectData = new ProjectFileData();
         setBackground(Color.BLACK);
@@ -53,19 +54,24 @@ public class MemorizationFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("afsdfasdf");
                 int linenum = 1;
-                lineQuestion.scrollPanel.setLayout(new GridLayout(linenum, 1));
-                lineQuestion.scrollPanel.revalidate();
-                lineQuestion.scrollPanel.repaint();
+
+                frame.navBar.reciteCircle.setColor(Color.DARK_GRAY);
+                frame.navBar.reciteButton.setBackground(Color.DARK_GRAY);
+                frame.navBar.editButton.setBackground(Color.black);
+                frame.navBar.editCircle.setColor(Color.black);
+                frame.navBar.homeButton.setBackground(Color.black);
+                frame.navBar.homeCircle.setColor(Color.black);
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
 
-                    i.remove(i.title);
-                    i.remove(i.subButton);
-                    i.remove(i.lineText);
-                    i.remove(i.editButton);
-                    i.remove(i.otherLine);
+                    i.title.setVisible(false);;
+                    i.subButton.setVisible(false);;
+                    i.lineText.setVisible(false);
+                    i.editButton.setVisible(false);
+                    i.otherLine.setVisible(false);
                     if (lineQuestion.title != null) {
                         String line = i.title.getText();
-                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording, i.otherLineSelected, lineQuestion.timePlay);
+                        projectData.addToLinesList(lineQuestion.title, linenum, line, lineQuestion.islineRecording,
+                                i.otherLineSelected, lineQuestion.timePlay);
                     }
                     i.revalidate();
                     i.repaint();
@@ -91,6 +97,7 @@ public class MemorizationFrame extends JPanel {
                 MainFramegbc.gridy++;
                 add(restartButton, MainFramegbc);
                 MainFramegbc.gridy = -1;
+                lineQuestion.scrollPanel.setLayout(new GridLayout(linenum, 1));
                 lineQuestion.scrollPanel.revalidate();
                 lineQuestion.scrollPanel.repaint();
                 remove(finishBtn);
@@ -116,16 +123,23 @@ public class MemorizationFrame extends JPanel {
                         remove(nextButton);
                     } else {
                         MainFramegbc.gridy = currentLine;
-                        currentLineInput.add(currentLineInput.title, MainFramegbc);
+                        currentLineInput.title.setName(currentLineInput.title.getText());
+                        currentLineInput.title.setVisible(true) ;
+                        for(int i=0; i<currentLineInput.getComponents().length; i++){
+                        System.out.println(currentLineInput.getComponents()[i].getName());}
+                        currentLineInput.revalidate();
+                        currentLineInput.repaint();
                         if (currentLineInput.otherLineSelected == true) {
-
                             int nextCheckedLine = currentLine + 1;
                             String nextLineName = "input" + nextCheckedLine;
-                            LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
+ 
+                            LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);                           
+                            System.out.println(nextLineInput);
                             if (nextLineInput != null) {
                                 while (nextLineInput.otherLineSelected == true) {
                                     if (nextLineInput != null) {
                                         nextLineInput.add(nextLineInput.title);
+                                        System.out.println(nextLineInput.title);
                                         nextCheckedLine++;
                                         nextLineName = "input" + nextCheckedLine;
                                         nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
@@ -134,6 +148,7 @@ public class MemorizationFrame extends JPanel {
                                 }
                             }
                         }
+
                     }
                 }
 
@@ -149,7 +164,7 @@ public class MemorizationFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 MainFramegbc.gridy = 1;
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
-                    i.remove(i.title);
+                    i.title.setVisible(false);
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
@@ -160,7 +175,10 @@ public class MemorizationFrame extends JPanel {
                 add(nextButton, MainFramegbc);
                 currentLine = 0;
                 remove(finishBtn);
-                remove(congaRats);
+                try {
+                    remove(congaRats);
+                } catch (Exception e2) {
+                }
                 revalidate();
                 repaint();
 
@@ -212,7 +230,6 @@ public class MemorizationFrame extends JPanel {
         }
         setBackground(Color.white);
     }
-
 
     public Boolean checkFinish(LineInput lineinput) {
         if (lineinput.title.getText() != null) {

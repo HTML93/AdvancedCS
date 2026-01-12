@@ -1,8 +1,8 @@
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -47,6 +47,6 @@ public class frameContainer extends JFrame{
         setVisible(true);
     }
     public static void main(String[] args) {
-        
+        new frameContainer();
     }
 }
