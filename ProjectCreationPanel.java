@@ -93,6 +93,7 @@ public class ProjectCreationPanel extends JPanel {
         openButton = new JButton("Create");
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                frame.Framegbc.weighty = 1;
                 createProject(frame);
             }
         });
@@ -114,6 +115,7 @@ public class ProjectCreationPanel extends JPanel {
         ArrayList<Object> project = new ArrayList<Object>();
         frame.openedProject = name;
         frame.Framegbc.gridy = 100;
+        frame.Framegbc.weighty = 3;
 
         frame.navBar.reciteCircle.setColor(Color.black);
         frame.navBar.reciteButton.setBackground(Color.black);
@@ -145,6 +147,7 @@ public class ProjectCreationPanel extends JPanel {
         }
         GridLayout editLayout = new GridLayout();
         editLayout.setColumns(6);
+        editLayout.setRows(project.size()/6+1);
         scrollPanel.setLayout(editLayout);
         scrollPanel.setName("scroll");
         MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame(frame, scrollPanel);
@@ -193,13 +196,14 @@ public class ProjectCreationPanel extends JPanel {
             }
             randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
             scrollPane.setBackground(Color.BLACK);
+            scrollPane.setBorder(null);
             Dimension mainSize = randomlyGeneratedVariableName.getSize();
             mainSize.height += 500;
-            mainSize.width += 500;
+            mainSize.width += 750;
             System.out.println(mainSize);
             scrollPane.setPreferredSize(mainSize);
-            // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            // scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            
             scrollPane.remove(scrollPane.getHorizontalScrollBar());
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
 
@@ -212,8 +216,8 @@ public class ProjectCreationPanel extends JPanel {
             }
 
         }
-
-        frame.add(randomlyGeneratedVariableName);
+        frame.Framegbc.gridy=50;
+        frame.add(randomlyGeneratedVariableName, frame.Framegbc);
         frame.remove(frame.projPage);
         frame.repaint();
         frame.revalidate();
@@ -222,8 +226,10 @@ public class ProjectCreationPanel extends JPanel {
 
     public void createProject(frameContainer frame) {
         MemorizationFrame creationFrame = new MemorizationFrame(frame, null);
-        frame.add(creationFrame);
-        frame.Framegbc.gridy = 100;
+        frame.Framegbc.weighty = 3;
+        frame.Framegbc.gridy=5;
+        frame.add(creationFrame, frame.Framegbc);
+        frame.Framegbc.gridy = 6;
         File file = new File("projects.json");
         if (file.exists() == false || ProjectFileData.retrieveFile("projects.json").size() == 0) {
             frame.navBar.editButton.setEnabled(false);

@@ -1,4 +1,3 @@
-import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
@@ -19,6 +18,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.util.Timer;
 
 public class frameContainer extends JFrame{
@@ -27,6 +28,7 @@ public class frameContainer extends JFrame{
     ProjectPage projPage;
     MemorizationFrame memPanel;
     String openedProject;
+    JLabel title;
     frameContainer() {
         setTitle("App");
         setBackground(Color.BLACK);
@@ -34,12 +36,19 @@ public class frameContainer extends JFrame{
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         this.getContentPane().setBackground(Color.BLACK);
-
+        title = new JLabel("Memorizo");
+        title.setFont(new Font("Serif", Font.BOLD, 45));
+        title.setForeground(Color.BLUE);
+        title.setBackground(Color.BLACK);
         Framegbc = new GridBagConstraints();
         projPage = new ProjectPage(this);
         navBar = new NavBar(this);
-        Framegbc.gridy=2;
-        //add(navBar, Framegbc);
+        System.out.println(Framegbc.weighty);
+        Framegbc.gridy=0;
+        Framegbc.weighty=0;
+        title.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
+        add(title, Framegbc);
+        Framegbc.weighty=1;
         Framegbc.gridy=1;
         add(projPage, Framegbc);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

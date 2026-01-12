@@ -19,6 +19,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +55,11 @@ public class ProjectPage extends JPanel {
 
      public void checkForNew() {
         ArrayList<String> newProjects = ProjectFileData.retrieveFile("projects.json");
+        for(int i =0; i<newProjects.size(); i++){
+            if(Files.exists(Paths.get(newProjects.get(i)+".json"))==false){
+                newProjects.remove(i);
+            }
+        }
         if (projects!=newProjects){
             this.removeAll();
             addProjs(newProjects);

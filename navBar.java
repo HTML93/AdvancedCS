@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import org.json.simple.parser.JSONParser;
 
@@ -82,7 +83,8 @@ public class NavBar extends JPanel {
         System.out.println(editButton.getText());
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                {
+                {   
+                    
                     reciteCircle.setColor(Color.black);
                     reciteButton.setBackground(Color.black);
                     editButton.setBackground(Color.DARK_GRAY);
@@ -91,6 +93,7 @@ public class NavBar extends JPanel {
                     homeCircle.setColor(Color.black);
                     System.out.println("edit");
                     goEdit(frame);
+                    
                 }
             }
         });
@@ -130,7 +133,11 @@ public class NavBar extends JPanel {
         frame.getContentPane().removeAll();
         openProject(frame.openedProject + ".json", frame.openedProject, frame);
         frame.Framegbc.gridy = 100;
+        frame.Framegbc.weighty = 1;
         frame.add(frame.navBar, frame.Framegbc);
+        frame.Framegbc.weighty = 0;
+        frame.Framegbc.gridy = 0;
+        frame.add(frame.title, frame.Framegbc);
         frame.revalidate();
         frame.repaint();
     }
@@ -143,7 +150,11 @@ public class NavBar extends JPanel {
         }
         frame.projPage.checkForNew();
         frame.Framegbc.gridy = 2;
+        frame.Framegbc.weighty = 1;
         frame.add(frame.projPage, frame.Framegbc);
+        frame.Framegbc.weighty = 0;
+        frame.Framegbc.gridy = 0;
+        frame.add(frame.title, frame.Framegbc);
         frame.revalidate();
         frame.repaint();
     }
@@ -160,7 +171,9 @@ public class NavBar extends JPanel {
         ;
         frame.Framegbc.gridy = 100;
         frame.add(frame.navBar, frame.Framegbc);
-
+        frame.Framegbc.weighty = 0;
+        frame.Framegbc.gridy = 0;
+        frame.add(frame.title, frame.Framegbc);
         frame.revalidate();
         frame.repaint();
     }
@@ -200,6 +213,8 @@ public class NavBar extends JPanel {
         }
         GridLayout editLayout = new GridLayout();
         editLayout.setColumns(6);
+                editLayout.setRows(project.size()/6+1);
+
         scrollPanel.setLayout(editLayout);
         scrollPanel.setName("scroll");
         randomlyGeneratedVariableName = new MemorizationFrame(frame, scrollPanel);
@@ -210,7 +225,7 @@ public class NavBar extends JPanel {
         int linenum = 0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
-
+            
             randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
             linenum++;
             for (Object key : currentLine.keySet()) {
@@ -250,11 +265,11 @@ public class NavBar extends JPanel {
             scrollPane.setBackground(Color.BLACK);
             Dimension mainSize = randomlyGeneratedVariableName.getSize();
             mainSize.height += 500;
-            mainSize.width += 500;
+            mainSize.width += 750;
             System.out.println(mainSize);
             scrollPane.setPreferredSize(mainSize);
-            // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            // scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollPane.setBorder(null);
             scrollPane.remove(scrollPane.getHorizontalScrollBar());
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
 
@@ -268,7 +283,8 @@ public class NavBar extends JPanel {
 
         }
 
-        frame.add(randomlyGeneratedVariableName);
+        frame.Framegbc.gridy=50;
+        frame.add(randomlyGeneratedVariableName, frame.Framegbc);
         frame.remove(frame.projPage);
         frame.repaint();
         frame.revalidate();

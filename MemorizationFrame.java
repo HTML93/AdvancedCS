@@ -35,16 +35,19 @@ public class MemorizationFrame extends JPanel {
     public String title;
     public frameContainer frame;
     public JPanel scrollPanel;
+
     MemorizationFrame(frameContainer f, JPanel sp) {
         projectData = new ProjectFileData();
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         setBackground(Color.BLACK);
         frame = f;
-        scrollPanel=sp;
+        scrollPanel = sp;
         MainFramegbc = new GridBagConstraints();
         MemorizationFrame memframe = this;
-        
+        MainFramegbc.weightx = 1.0;
+        MainFramegbc.anchor = GridBagConstraints.CENTER;
+
         lineQuestion = new LineQuestion(this);
         MainFramegbc.gridx = 0;
         MainFramegbc.gridy = 0;
@@ -56,8 +59,8 @@ public class MemorizationFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("afsdfasdf");
                 int linenum = 1;
-                
-                 scrollPanel.setLayout(new GridLayout(lineQuestion.lineInputContainers.size(), 1));
+
+                scrollPanel.setLayout(new GridLayout(lineQuestion.lineInputContainers.size(), 1));
                 frame.navBar.reciteCircle.setColor(Color.DARK_GRAY);
                 frame.navBar.reciteButton.setBackground(Color.DARK_GRAY);
                 frame.navBar.editButton.setBackground(Color.black);
@@ -66,8 +69,10 @@ public class MemorizationFrame extends JPanel {
                 frame.navBar.homeCircle.setColor(Color.black);
                 for (LineInput i : lineQuestion.lineInputContainers.values()) {
 
-                    i.title.setVisible(false);;
-                    i.subButton.setVisible(false);;
+                    i.title.setVisible(false);
+                    ;
+                    i.subButton.setVisible(false);
+                    ;
                     i.lineText.setVisible(false);
                     i.editButton.setVisible(false);
                     i.otherLine.setVisible(false);
@@ -118,24 +123,25 @@ public class MemorizationFrame extends JPanel {
                     LineInput currentLineInput = lineQuestion.lineInputContainers.get(currentLineName);
                     if (currentLineInput == null) {
                         MainFramegbc.gridy = 0;
-                        congaRats = new JLabel("CONGA RATS YOU FINISHED");
-                        congaRats.setFont(new Font("Serif", Font.BOLD, 45));
-                        congaRats.setForeground(Color.BLUE);
+                        congaRats = new JLabel("Congrats You Memorized the Whole Thing");
+                        congaRats.setFont(new Font("Serif", Font.BOLD, 20));
+                        congaRats.setForeground(Color.white);
                         add(congaRats, MainFramegbc);
                         remove(nextButton);
                     } else {
                         MainFramegbc.gridy = currentLine;
                         currentLineInput.title.setName(currentLineInput.title.getText());
-                        currentLineInput.title.setVisible(true) ;
-                        for(int i=0; i<currentLineInput.getComponents().length; i++){
-                        System.out.println(currentLineInput.getComponents()[i].getName());}
+                        currentLineInput.title.setVisible(true);
+                        for (int i = 0; i < currentLineInput.getComponents().length; i++) {
+                            System.out.println(currentLineInput.getComponents()[i].getName());
+                        }
                         currentLineInput.revalidate();
                         currentLineInput.repaint();
                         if (currentLineInput.otherLineSelected == true) {
                             int nextCheckedLine = currentLine + 1;
                             String nextLineName = "input" + nextCheckedLine;
- 
-                            LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);                           
+
+                            LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
                             System.out.println(nextLineInput);
                             if (nextLineInput != null) {
                                 while (nextLineInput.otherLineSelected == true) {
@@ -202,9 +208,14 @@ public class MemorizationFrame extends JPanel {
 
             }
         });
+        //if i broke smth its these lines
+        MainFramegbc.gridx=0;
+        MainFramegbc.anchor=GridBagConstraints.CENTER;
+        MainFramegbc.gridy=0;
+        add(lineQuestion, MainFramegbc);
+        MainFramegbc.weightx = 1.0;
 
-        add(lineQuestion);
-
+       // MainFramegbc.fill=GridBagConstraints.BOTH;
         setVisible(true);
 
     }

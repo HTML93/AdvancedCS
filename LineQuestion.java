@@ -11,7 +11,6 @@ public class LineQuestion extends JPanel {
     public JLabel question;
     public JTextField lineAmt;
     public JButton questionBtn;
-    public JPanel questionContatiner;
     public LinkedHashMap<String, LineInput> lineInputContainers = new LinkedHashMap<String, LineInput>();
     public boolean islineRecording = false;
     public JCheckBox lineRecording;
@@ -25,8 +24,8 @@ public class LineQuestion extends JPanel {
     public JScrollPane scrollPane;
     public JPanel scrollPanel;
     public GridLayout lineQuestionLayout;
+    public JPanel checksPanel;
     LineQuestion(MemorizationFrame mainFrame) {
-        questionContatiner = new JPanel();
         this.setLayout(new GridBagLayout());
         GridBagConstraints lineInputGBC = new GridBagConstraints();
         question = new JLabel("How Many Lines");
@@ -81,10 +80,12 @@ public class LineQuestion extends JPanel {
                                 mainFrame.frame.navBar.editButton.setEnabled(true);
                                 mainFrame.frame.navBar.reciteButton.setEnabled(true);
                                 mainSize.height+=500;
+                                            mainSize.width += 750;
+
                                 System.out.println(mainSize);
                                 scrollPane.setPreferredSize(mainSize);
-                              // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-                                //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                                scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                                scrollPane.setBorder(null);
                                 scrollPane.remove(scrollPane.getHorizontalScrollBar());
                                 mainFrame.add(scrollPane, mainFrame.MainFramegbc);
                                 mainFrame.MainFramegbc.gridy++;
@@ -121,7 +122,14 @@ public class LineQuestion extends JPanel {
         titleLabel.setForeground(Color.gray);
         titleName.setColumns(15);
 
-
+        checksPanel = new JPanel();
+        checksPanel.setBackground(Color.BLACK);
+        checksPanel.setLayout(new GridBagLayout());
+        GridBagConstraints checksgbc = new GridBagConstraints();
+        checksgbc.weightx= 1;
+        checksPanel.add(isOtherLines);
+        checksgbc.weightx= 3;
+        checksPanel.add(lineRecording);
         lineInputGBC.gridx = 2;        
         lineInputGBC.gridy= 0;
         add(titleLabel, lineInputGBC);
@@ -136,12 +144,7 @@ public class LineQuestion extends JPanel {
         lineInputGBC.gridy = 5;
         add(timePlayInput, lineInputGBC);
         lineInputGBC.gridy = 6;
-        lineInputGBC.gridx=1;
-        add(isOtherLines, lineInputGBC);
-        lineInputGBC.gridy = 6;
-        lineInputGBC.gridx=3;
-        add(lineRecording, lineInputGBC);
-        lineInputGBC.gridx = 2;
+        add(checksPanel, lineInputGBC);
         lineInputGBC.gridy = 7;
         add(questionBtn, lineInputGBC);
         this.setBackground(Color.BLACK);
