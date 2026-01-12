@@ -34,15 +34,17 @@ public class MemorizationFrame extends JPanel {
     public ProjectFileData projectData;
     public String title;
     public frameContainer frame;
-
-    MemorizationFrame(frameContainer f) {
+    public JPanel scrollPanel;
+    MemorizationFrame(frameContainer f, JPanel sp) {
         projectData = new ProjectFileData();
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         setBackground(Color.BLACK);
         frame = f;
+        scrollPanel=sp;
         MainFramegbc = new GridBagConstraints();
-
+        MemorizationFrame memframe = this;
+        
         lineQuestion = new LineQuestion(this);
         MainFramegbc.gridx = 0;
         MainFramegbc.gridy = 0;
@@ -54,7 +56,8 @@ public class MemorizationFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("afsdfasdf");
                 int linenum = 1;
-
+                
+                 scrollPanel.setLayout(new GridLayout(lineQuestion.lineInputContainers.size(), 1));
                 frame.navBar.reciteCircle.setColor(Color.DARK_GRAY);
                 frame.navBar.reciteButton.setBackground(Color.DARK_GRAY);
                 frame.navBar.editButton.setBackground(Color.black);
@@ -76,8 +79,7 @@ public class MemorizationFrame extends JPanel {
                     i.revalidate();
                     i.repaint();
                     i.setBorder(null);
-                    lineQuestion.scrollPanel.remove(i);
-                    lineQuestion.scrollPanel.add(i);
+
                     MainFramegbc.gridy = linenum + 1;
                     MainFramegbc.gridx = 1;
                     linenum++;

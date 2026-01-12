@@ -61,7 +61,7 @@ public class LineQuestion extends JPanel {
                                 }
                                 int columns = 6;
                                 
-                               lineQuestionLayout.setColumns(columns);
+                                lineQuestionLayout.setColumns(columns);
                                 int rows = (inputNum/columns)+1;
                                 lineQuestionLayout.setRows(rows);
                                 scrollPanel.setLayout(lineQuestionLayout);
@@ -80,9 +80,9 @@ public class LineQuestion extends JPanel {
                                 Dimension mainSize = mainFrame.getSize();
                                 mainFrame.frame.navBar.editButton.setEnabled(true);
                                 mainFrame.frame.navBar.reciteButton.setEnabled(true);
-                                mainSize.height+=mainFrame.getHeight()*3;
+                                mainSize.height+=500;
                                 System.out.println(mainSize);
-                                scrollPane.setPreferredSize(mainFrame.getSize());
+                                scrollPane.setPreferredSize(mainSize);
                               // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
                                 //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
                                 scrollPane.remove(scrollPane.getHorizontalScrollBar());
@@ -93,7 +93,7 @@ public class LineQuestion extends JPanel {
                                 mainFrame.frame.openedProject=titleName.getText();
                                 mainFrame.revalidate();
                                 mainFrame.repaint();
-
+                                mainFrame.scrollPanel=scrollPanel;
 
                             } else {
                                 lineAmt.setText("Enter a Number More than 0");

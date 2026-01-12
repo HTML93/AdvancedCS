@@ -27,7 +27,8 @@ public class NavBar extends JPanel {
     public Circle editCircle;
     public Circle reciteCircle;
     MemorizationFrame randomlyGeneratedVariableName;
-
+    public JScrollPane scrollPane;
+    public JPanel scrollPanel;
     NavBar(frameContainer frame) {
         navContainer = new JLayeredPane();
         navContainer.setPreferredSize(new Dimension(250, 75));
@@ -166,10 +167,20 @@ public class NavBar extends JPanel {
 
     public void openProject(String fileName, String name, frameContainer frame) {
         ArrayList<Object> project = new ArrayList<Object>();
-        JPanel scrollPanel = new JPanel();
-        scrollPanel.setBackground(Color.black);
-        JScrollPane scrollPane = new JScrollPane(scrollPanel);
         frame.openedProject = name;
+        frame.Framegbc.gridy = 100;
+
+        frame.navBar.reciteCircle.setColor(Color.black);
+        frame.navBar.reciteButton.setBackground(Color.black);
+        frame.navBar.editButton.setBackground(Color.DARK_GRAY);
+        frame.navBar.editCircle.setColor(Color.DARK_GRAY);
+        frame.navBar.homeButton.setBackground(Color.black);
+        frame.navBar.homeCircle.setColor(Color.black);
+        frame.add(frame.navBar, frame.Framegbc);
+        scrollPanel = new JPanel();
+        scrollPanel.setBackground(Color.black);
+        scrollPane = new JScrollPane(scrollPanel);
+        
         try {
             File projectFile = new File(fileName);
 
@@ -187,11 +198,15 @@ public class NavBar extends JPanel {
         } catch (Exception e) {
             System.out.println(e);
         }
-        randomlyGeneratedVariableName = new MemorizationFrame(frame);
+        GridLayout editLayout = new GridLayout();
+        editLayout.setColumns(6);
+        scrollPanel.setLayout(editLayout);
+        scrollPanel.setName("scroll");
+        randomlyGeneratedVariableName = new MemorizationFrame(frame, scrollPanel);
         randomlyGeneratedVariableName.title = name;
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
-        scrollPanel.setLayout(new GridLayout(project.size(), 1));
+        
         int linenum = 0;
         for (int i = 0; i < project.size(); i++) {
             org.json.simple.JSONObject currentLine = (org.json.simple.JSONObject) project.get(i);
@@ -199,14 +214,11 @@ public class NavBar extends JPanel {
             randomlyGeneratedVariableName.MainFramegbc.gridx = 1;
             linenum++;
             for (Object key : currentLine.keySet()) {
-                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine
-                        .get(key.toString());
-                System.out.println(
-                        "current line: " + linenum + " line: " + idkWhatToCallcertainVariablesanymore.get("line"));
+                org.json.simple.JSONObject idkWhatToCallcertainVariablesanymore = (org.json.simple.JSONObject) currentLine.get(key.toString());
+                randomlyGeneratedVariableName.lineQuestion.timePlay = (int) (long) idkWhatToCallcertainVariablesanymore.get("recordLength");
+                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean) idkWhatToCallcertainVariablesanymore.get("islineRecording");
 
-                randomlyGeneratedVariableName.MainFramegbc.gridy = linenum;
-                LineInput currentLineTitle = new LineInput(i + 1, false,
-                        (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
+                LineInput currentLineTitle = new LineInput(i + 1, false, (boolean) idkWhatToCallcertainVariablesanymore.get("otherLine"), name);
                 currentLineTitle.title.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 currentLineTitle.lineText.setText(idkWhatToCallcertainVariablesanymore.get("line").toString());
                 if ((boolean) idkWhatToCallcertainVariablesanymore.get("otherLine") == true) {
@@ -220,10 +232,7 @@ public class NavBar extends JPanel {
                  * currentLineTitle.otherLineSelected = true;
                  * }
                  */
-                randomlyGeneratedVariableName.lineQuestion.timePlay = (int) (long)idkWhatToCallcertainVariablesanymore
-                        .get("recordLength");
-                randomlyGeneratedVariableName.lineQuestion.islineRecording = (boolean) idkWhatToCallcertainVariablesanymore
-                        .get("islineRecording");
+                
                 currentLineTitle.remove(currentLineTitle.lineText);
                 currentLineTitle.remove(currentLineTitle.subButton);
                 currentLineTitle.remove(currentLineTitle.otherLine);
@@ -234,30 +243,31 @@ public class NavBar extends JPanel {
                 currentLineTitle.repaint();
                 currentLineTitle.setBorder(null);
 
-                randomlyGeneratedVariableName.lineQuestion.lineInputContainers
-                        .put("input" + Integer.toString(linenum - 1), currentLineTitle);
+                randomlyGeneratedVariableName.lineQuestion.lineInputContainers.put("input" + Integer.toString(linenum - 1), currentLineTitle);
 
             }
             randomlyGeneratedVariableName.MainFramegbc.gridy = linenum + 1;
+            scrollPane.setBackground(Color.BLACK);
+            Dimension mainSize = randomlyGeneratedVariableName.getSize();
+            mainSize.height += 500;
+            mainSize.width += 500;
+            System.out.println(mainSize);
+            scrollPane.setPreferredSize(mainSize);
+            // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            // scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            scrollPane.remove(scrollPane.getHorizontalScrollBar());
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
-            randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn,
-                    randomlyGeneratedVariableName.MainFramegbc);
 
+            randomlyGeneratedVariableName.add(scrollPane, randomlyGeneratedVariableName.MainFramegbc);
+            randomlyGeneratedVariableName.MainFramegbc.gridy++;
+            randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn, randomlyGeneratedVariableName.MainFramegbc);
             if (randomlyGeneratedVariableName.lineQuestion.islineRecording) {
                 add(randomlyGeneratedVariableName.playButton,
                         randomlyGeneratedVariableName.MainFramegbc);
             }
 
         }
-        scrollPane.setBackground(Color.BLACK);
-        Dimension mainSize = randomlyGeneratedVariableName.getSize();
-        mainSize.height += randomlyGeneratedVariableName.getHeight() * 3;
-        System.out.println(mainSize);
-        scrollPane.setPreferredSize(mainSize);
-    // scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scrollPane.remove(scrollPane.getHorizontalScrollBar());
-        randomlyGeneratedVariableName.add(scrollPane, randomlyGeneratedVariableName.MainFramegbc);
+
         frame.add(randomlyGeneratedVariableName);
         frame.remove(frame.projPage);
         frame.repaint();

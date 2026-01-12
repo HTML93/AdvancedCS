@@ -1,6 +1,4 @@
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +17,8 @@ public class ProjectFileData {
     public HashMap<String, List> linesList = new HashMap<>();
     public String projectTitle;
 
-    public void addToLinesList(String title, int lineNum, String line, boolean islineRecording, boolean otherLine, int recordTime) {
+    public void addToLinesList(String title, int lineNum, String line, boolean islineRecording, boolean otherLine,
+            int recordTime) {
         List<Object> listOfStuff = new ArrayList<Object>();
         listOfStuff.add(line);
         listOfStuff.add(islineRecording);
@@ -59,8 +58,9 @@ public class ProjectFileData {
             ArrayList<String> projectsToAdd = retrieveFile("projects.json");
             JSONArray projects = new JSONArray();
             projectsToAdd.add(projectTitle);
-            for(int i=0; i<projectsToAdd.size(); i++)
-                {projects.put(projectsToAdd.get(i));}
+            for (int i = 0; i < projectsToAdd.size(); i++) {
+                projects.put(projectsToAdd.get(i));
+            }
             FileWriter file = new FileWriter(fileGo);
 
             file.write(projects.toString());
@@ -73,7 +73,7 @@ public class ProjectFileData {
     }
 
     public static ArrayList<String> retrieveFile(String File) {
-        
+
         try {
             File projectFile = new File(File);
             ArrayList<String> projects = new ArrayList<String>();
@@ -92,6 +92,24 @@ public class ProjectFileData {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static void deleteProj(String File) {
+        ArrayList<String> projectsRetrieved = retrieveFile("projects.json");
+        projectsRetrieved.remove(File);
+        JSONArray projects= new JSONArray();
+        for(int i =0;i<projectsRetrieved.size();i++){
+            projects.put(projectsRetrieved.get(i));
+        }
+        try {
+            FileWriter file = new FileWriter(new File("projects.json"));
+            file.write(projects.toString());
+            file.flush();
+            file.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        new File(File+".json").delete();
     }
 
 }

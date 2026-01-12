@@ -51,14 +51,18 @@ public class ProjectPage extends JPanel {
 
     }
 
-    public void checkForNew() {
+     public void checkForNew() {
         ArrayList<String> newProjects = ProjectFileData.retrieveFile("projects.json");
         if (projects!=newProjects){
             this.removeAll();
             addProjs(newProjects);
+            frame.revalidate();
+            frame.repaint();
         }
     }
     private void addProjs(ArrayList<String> project){
+        ProjectPageGBC.gridx = 0;
+        ProjectPageGBC.gridy = 0;
         System.out.println(project);
         for (int i = 0; i < project.size(); i++) {
             ProjectCreationPanel meaninglessVariableName = new ProjectCreationPanel(project.get(i), frame);
