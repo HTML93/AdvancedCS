@@ -30,6 +30,7 @@ public class frameContainer extends JFrame{
     MemorizationFrame memPanel;
     String openedProject;
     JLabel title;
+    MemorizationFrame openedFrame;
     frameContainer() {
         setTitle("App");
         setBackground(Color.BLACK);

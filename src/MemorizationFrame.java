@@ -128,7 +128,7 @@ public class MemorizationFrame extends JPanel {
                         congaRats.setFont(new Font("Serif", Font.BOLD, 20));
                         congaRats.setForeground(Color.white);
                         add(congaRats, MainFramegbc);
-                        remove(nextButton);
+                        nextButton.setVisible(false);
                     } else {
                         MainFramegbc.gridy = currentLine;
                         currentLineInput.title.setName(currentLineInput.title.getText());
@@ -145,9 +145,9 @@ public class MemorizationFrame extends JPanel {
                             LineInput nextLineInput = lineQuestion.lineInputContainers.get(nextLineName);
                             System.out.println(nextLineInput);
                             if (nextLineInput != null) {
-                                while (nextLineInput.otherLineSelected == true) {
+                                while (nextLineInput != null&&nextLineInput.otherLineSelected == true) {
                                     if (nextLineInput != null) {
-                                        nextLineInput.add(nextLineInput.title);
+                                        nextLineInput.title.setVisible(true);
                                         System.out.println(nextLineInput.title);
                                         nextCheckedLine++;
                                         nextLineName = "input" + nextCheckedLine;
@@ -181,9 +181,10 @@ public class MemorizationFrame extends JPanel {
                 }
                 MainFramegbc.gridy++;
                 MainFramegbc.gridy++;
-                add(nextButton, MainFramegbc);
+                nextButton.setVisible(true);
+                System.out.println(MainFramegbc.gridx + " "+ MainFramegbc.weighty);
+
                 currentLine = 0;
-                remove(finishBtn);
                 try {
                     remove(congaRats);
                 } catch (Exception e2) {
@@ -221,7 +222,8 @@ public class MemorizationFrame extends JPanel {
 
     }
 
-    public void playFile(File audioFile, int playTime) {
+    public void playFile(File audioFile1, int playTime) {
+
         try {
             Clip lineAudio = AudioSystem.getClip();
             audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -242,7 +244,7 @@ public class MemorizationFrame extends JPanel {
         } catch (Exception d) {
             System.out.println(d);
         }
-        setBackground(Color.white);
+        setBackground(Color.BLACK);
     }
 
     public Boolean checkFinish(LineInput lineinput) {

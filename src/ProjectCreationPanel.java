@@ -152,6 +152,7 @@ public class ProjectCreationPanel extends JPanel {
         scrollPanel.setLayout(editLayout);
         scrollPanel.setName("scroll");
         MemorizationFrame randomlyGeneratedVariableName = new MemorizationFrame(frame, scrollPanel);
+        frame.openedFrame = randomlyGeneratedVariableName;
         randomlyGeneratedVariableName.title = name;
         randomlyGeneratedVariableName.remove(randomlyGeneratedVariableName.lineQuestion);
         randomlyGeneratedVariableName.MainFramegbc.gridy = 0;
@@ -227,6 +228,7 @@ public class ProjectCreationPanel extends JPanel {
 
     public void createProject(frameContainer frame) {
         MemorizationFrame creationFrame = new MemorizationFrame(frame, null);
+        frame.openedFrame  = creationFrame;
         frame.Framegbc.weighty = 3;
         frame.Framegbc.gridy=5;
         frame.add(creationFrame, frame.Framegbc);

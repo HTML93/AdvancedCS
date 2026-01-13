@@ -40,7 +40,7 @@ public class ProjectFileData {
             objItem.put("line", linesList.get(i).get(0).toString());
             objItem.put("islineRecording", listofstuff.get(1));
             objItem.put("otherLine", listofstuff.get(2));
-            objItem.put("recordLength", listofstuff.get(3));
+            objItem.put("recordLength", listofstuff.get(4));
 
             String lineNumber = listofstuff.get(3).toString();
             obj.put(lineNumber, objItem);

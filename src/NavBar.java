@@ -277,13 +277,8 @@ public class NavBar extends JPanel {
             randomlyGeneratedVariableName.add(scrollPane, randomlyGeneratedVariableName.MainFramegbc);
             randomlyGeneratedVariableName.MainFramegbc.gridy++;
             randomlyGeneratedVariableName.add(randomlyGeneratedVariableName.finishBtn, randomlyGeneratedVariableName.MainFramegbc);
-            if (randomlyGeneratedVariableName.lineQuestion.islineRecording) {
-                add(randomlyGeneratedVariableName.playButton,
-                        randomlyGeneratedVariableName.MainFramegbc);
-            }
 
         }
-
         frame.Framegbc.gridy=50;
         frame.add(randomlyGeneratedVariableName, frame.Framegbc);
         frame.remove(frame.projPage);
