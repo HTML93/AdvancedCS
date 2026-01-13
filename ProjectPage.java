@@ -74,7 +74,7 @@ public class ProjectPage extends JFrame {
 
     }
 
-    void main() {
-
+    public static void main(String[] args) {
+        
     }
 }
