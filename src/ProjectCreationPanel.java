@@ -1,6 +1,5 @@
-package src;
 
-import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -15,14 +14,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.json.simple.parser.JSONParser;
 
 public class ProjectCreationPanel extends JPanel {
     public JLabel title;
     public JPanel projectBox;
-    public ArrayList projectFile;
     public JScrollPane scrollPane;
     public JPanel scrollPanel;
     public JButton delete;

@@ -1,4 +1,4 @@
-package src;
+
 
 
 import java.awt.Color;
@@ -7,22 +7,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.Line;
+
 import javax.sound.sampled.Mixer;
-import javax.sound.sampled.Port;
+
 import javax.sound.sampled.TargetDataLine;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 
-import java.util.ArrayList;
+
 
 public class RecordTest extends JPanel {
     public JButton startButton;

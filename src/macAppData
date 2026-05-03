@@ -10,9 +10,9 @@ import org.json.JSONObject;
 import java.io.*;
 
 import org.json.simple.parser.JSONParser;
-
-
-public class ProjectFileData {
+public class macAppData {
+    static String macPath =System.getProperty("user.home")+"/Library/Application Support/Memorizo/";
+    new File(macPath).mkdirs();
     public HashMap<String, List<Object>> linesList = new HashMap<>();
     public String projectTitle;
 
@@ -44,7 +44,7 @@ public class ProjectFileData {
             obj.put(lineNumber, objItem);
             jsonArray.put(obj);
         }
-        try (FileWriter file = new FileWriter(projectTitle + ".json")) {
+        try (FileWriter file = new FileWriter(macPath+projectTitle + ".json")) {
             file.write(jsonArray.toString());
 
         } catch (Exception e) {
@@ -53,8 +53,9 @@ public class ProjectFileData {
         }
 
         try {
-            File fileGo = new File("projects.json");
-            ArrayList<String> projectsToAdd = retrieveFile("projects.json");
+            String projectsPath = macPath+"projects.json"
+            File fileGo = new File(projectsPath);
+            ArrayList<String> projectsToAdd = retrieveFile(projectsPath);
             JSONArray projects = new JSONArray();
             projectsToAdd.add(projectTitle);
             for (int i = 0; i < projectsToAdd.size(); i++) {
@@ -94,21 +95,22 @@ public class ProjectFileData {
     }
 
     public static void deleteProj(String File) {
-        ArrayList<String> projectsRetrieved = retrieveFile("projects.json");
+        String projectsPath = macPath+"projects.json"
+        ArrayList<String> projectsRetrieved = retrieveFile(projectsPath);
         projectsRetrieved.remove(File);
         JSONArray projects= new JSONArray();
         for(int i =0;i<projectsRetrieved.size();i++){
             projects.put(projectsRetrieved.get(i));
         }
         try {
-            FileWriter file = new FileWriter(new File("projects.json"));
+            FileWriter file = new FileWriter(new File(projectsPath));
             file.write(projects.toString());
             file.flush();
             file.close();
         } catch (Exception e) {
             System.out.println(e);
         }
-        new File(File+".json").delete();
+        new File(macPath+File+".json").delete();
     }
 
 }

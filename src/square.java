@@ -1,11 +1,10 @@
-package src;
+
 
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.HashMap;
-import java.util.ArrayList;
+
 import javax.swing.JPanel;
  class square extends JPanel {
     int x, y, width, height;
